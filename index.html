@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kevin Essam - French Academy</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101b35;color:white;font-family:Arial,sans-serif;padding:18px;overflow-x:hidden}
+body:before{content:"KEVIN ESSAM";position:fixed;top:40%;left:-10%;font-size:55px;font-weight:bold;color:#ffffff0b;transform:rotate(-25deg);white-space:nowrap;pointer-events:none}
+main{max-width:700px;margin:auto;position:relative}
+h1{text-align:center;color:#ffd166}
+h2{color:#7ee7ff}
+.card{background:#1d2d50;padding:18px;border-radius:18px;margin:14px 0}
+input{width:100%;padding:13px;border-radius:10px;border:0;font-size:17px}
+button{background:#ffd166;color:#17213b;border:0;border-radius:12px;padding:12px 16px;font-size:16px;font-weight:bold;margin:5px;cursor:pointer}
+button:disabled{opacity:.4}
+.word{display:flex;justify-content:space-between;align-items:center;background:#293e67;padding:10px;border-radius:10px;margin:8px 0}
+.word button{padding:8px 12px}
+.small{color:#c6d8f4}
+#levels{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+#levels button{margin:0;padding:12px 3px}
+.correct{color:#7dffb0}.wrong{color:#ff9b9b}
+.hidden{display:none}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<main>
+<h1>🇫🇷 KEVIN ESSAM</h1>
+<p class="center">French Academy – أكاديمية تعلم اللغة الفرنسية</p>
+
+<section id="welcome" class="card center">
+<h2>أهلاً بك في الأكاديمية!</h2>
+<p>اكتب اسمك لنبدأ رحلة تعلم الفرنسية.</p>
+<input id="studentName" placeholder="مثلاً: Kevin Essam">
+<button onclick="start()">ابدأ التعلم 🚀</button>
+</section>
+
+<section id="academy" class="hidden">
+<div class="card center">
+<h2 id="hello"></h2>
+<p>⭐ نجومك: <b id="stars">0</b></p>
+<p class="small">احفظ الكلمات، استمع إلى نطقها، ثم اختبر نفسك!</p>
+<button onclick="changeName()">تغيير الاسم</button>
+</div>
+
+<div class="card">
+<h2>📚 المستويات</h2>
+<div id="levels"></div>
+</div>
+
+<div id="lesson" class="card hidden">
+<h2 id="levelTitle"></h2>
+<p>احفظ الكلمات التالية واستمع إلى نطقها:</p>
+<div id="words"></div>
+<button onclick="startQuiz()">ابدأ الاختبار ✍️</button>
+</div>
+
+<div id="quiz" class="card hidden">
+<h2 id="questionTitle">اختبر معلوماتك</h2>
+<p id="question"></p>
+<div id="answers"></div>
+<p id="feedback"></p>
+</div>
+
+<div id="result" class="card center hidden"></div>
+</section>
+</main>
+
+<script>
+const lessons = [
+["التحيات",["Bonjour:مرحباً","Bonsoir:مساء الخير","Salut:أهلاً","Merci:شكراً","Au revoir:إلى اللقاء"]],
+["الأرقام",["Un:واحد","Deux:اثنان","Trois:ثلاثة","Quatre:أربعة","Cinq:خمسة"]],
+["الألوان",["Rouge:أحمر","Bleu:أزرق","Vert:أخضر","Jaune:أصفر","Noir:أسود"]],
+["العائلة",["Père:أب","Mère:أم","Frère:أخ","Sœur:أخت","Famille:عائلة"]],
+["الحيوانات",["Chat:قطة","Chien:كلب","Cheval:حصان","Lion:أسد","Oiseau:طائر"]],
+["الطعام",["Pain:خبز","Lait:حليب","Pomme:تفاحة","Fromage:جبن","Eau:ماء"]],
+["المدرسة",["École:مدرسة","Livre:كتاب","Stylo:قلم","Table:طاولة","Sac:حقيبة"]],
+["أيام الأسبوع",["Lundi:الاثنين","Mardi:الثلاثاء","Mercredi:الأربعاء","Jeudi:الخميس","Vendredi:الجمعة"]],
+["أجزاء الجسم",["Tête:رأس","Main:يد","Pied:قدم","Nez:أنف","Bouche:فم"]],
+["الملابس",["Chemise:قميص","Pantalon:بنطال","Robe:فستان","Chaussures:حذاء","Chapeau:قبعة"]],
+["المنزل",["Maison:منزل","Porte:باب","Fenêtre:نافذة","Cuisine:مطبخ","Chambre:غرفة"]],
+["الفواكه",["Banane:موز","Orange:برتقال","Fraise:فراولة","Raisin:عنب","Mangue:مانجو"]],
+["المشروبات",["Jus:عصير","Café:قهوة","Thé:شاي","Eau:ماء","Limonade:ليمونادة"]],
+["الطقس",["Soleil:شمس","Pluie:مطر","Neige:ثلج","Vent:رياح","Nuage:سحابة"]],
+["الأماكن",["Parc:حديقة","Hôpital:مستشفى","Magasin:متجر","École:مدرسة","Rue:شارع"]],
+["المواصلات",["Voiture:سيارة","Bus:حافلة","Train:قطار","Avion:طائرة","Vélo:دراجة"]],
+["الأفعال",["Manger:يأكل","Boire:يشرب","Dormir:ينام","Lire:يقرأ","Écrire:يكتب"]],
+["الصفات",["Grand:كبير","Petit:صغير","Beau:جميل","Rapide:سريع","Lent:بطيء"]],
+["الوقت",["Heure:ساعة","Matin:صباح","Soir:مساء","Jour:يوم","Nuit:ليل"]],
+["الرياضة",["Football:كرة القدم","Tennis:تنس","Natation:سباحة","Basket:كرة السلة","Course:جري"]],
+["المهن",["Médecin:طبيب","Professeur:معلم","Ingénieur:مهندس","Cuisinier:طباخ","Pilote:طيار"]],
+["الطبيعة",["Arbre:شجرة","Fleur:زهرة","Mer:بحر","Montagne:جبل","Rivière:نهر"]],
+["المشاعر",["Joie:فرح","Tristesse:حزن","Amour:حب","Peur:خوف","Calme:هدوء"]],
+["أشياء يومية",["Téléphone:هاتف","Montre:ساعة يد","Clé:مفتاح","Chaise:كرسي","Lampe:مصباح"]],
+["مراجعة",["Bonjour:مرحباً","Merci:شكراً","Maison:منزل","Livre:كتاب","Ami:صديق"]]
+];
+
+let name="", current=0, stars=0, questions=[], qIndex=0, score=0;
+let unlocked=1;
+const $=id=>document.getElementById(id);
+
+function start(){
+ name=$("studentName").value.trim();
+ if(!name){alert("اكتب اسمك أولاً!");return}
+ localStorage.setItem("kevinName",name);
+ stars=Number(localStorage.getItem("kevinStars")||0);
+ unlocked=Number(localStorage.getItem("kevinUnlocked")||1);
+ $("welcome").classList.add("hidden");
+ $("academy").classList.remove("hidden");
+ $("hello").textContent="أهلاً يا "+name+"! مستعد للتعلم؟";
+ $("stars").textContent=stars;
+ showLevels();
+}
+function changeName(){
+ $("academy").classList.add("hidden");
+ $("welcome").classList.remove("hidden");
+ $("studentName").value=name;
+}
+function showLevels(){
+ $("levels").innerHTML="";
+ lessons.forEach((l,i)=>{
+ let b=document.createElement("button");
+ b.textContent=(i+1)+" "+(i+1<=unlocked?"⭐":"🔒");
+ b.disabled=i+1>unlocked;
+ b.onclick=()=>openLesson(i);
+ $("levels").appendChild(b);
+ });
+}
+function speak(word){
+ if(!("speechSynthesis" in window)){alert("خاصية النطق غير متاحة في هذا المتصفح");return}
+ let u=new SpeechSynthesisUtterance(word);
+ u.lang="fr-FR";u.rate=.85;
+ speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function openLesson(i){
+ current=i;
+ $("quiz").classList.add("hidden");
+ $("result").classList.add("hidden");
+ $("lesson").classList.remove("hidden");
+ $("levelTitle").textContent="المستوى "+(i+1)+": "+lessons[i][0];
+ $("words").innerHTML="";
+ lessons[i][1].forEach(item=>{
+ let [fr,ar]=item.split(":");
+ let div=document.createElement("div");
+ div.className="word";
+ let span=document.createElement("span");
+ span.innerHTML="<b>"+fr+"</b> — "+ar;
+ let b=document.createElement("button");
+ b.textContent="🔊 اسمع";
+ b.onclick=()=>speak(fr);
+ div.append(span,b);$("words").appendChild(div);
+ });
+}
+function startQuiz(){
+ score=0;qIndex=0;questions=[];
+ let currentWords=lessons[current][1];
+ let all=lessons.flatMap(x=>x[1]);
+ for(let i=0;i<2;i++){
+  let item=currentWords[i];
+  let [fr,ar]=item.split(":");
+  let choices=[ar];
+  while(choices.length<4){
+   let v=all[Math.floor(Math.random()*all.length)].split(":")[1];
+   if(!choices.includes(v))choices.push(v);
+  }
+  choices.sort(()=>Math.random()-.5);
+  questions.push({type:"اختر معنى الكلمة",text:"ما معنى كلمة: "+fr+"؟",choices,answer:ar});
+ }
+ for(let i=0;i<2;i++){
+  let choices=currentWords.slice(i,i+3).map(x=>x.split(":")[0]);
+  let other;
+  do{other=all[Math.floor(Math.random()*all.length)].split(":")[0]}
+  while(choices.includes(other));
+  choices.push(other);choices.sort(()=>Math.random()-.5);
+  questions.push({type:"أوجد المختلف",text:"أي كلمة ليست من كلمات هذا الدرس؟",choices,answer:other});
+ }
+ $("lesson").classList.add("hidden");
+ $("quiz").classList.remove("hidden");
+ showQuestion();
+}
+function showQuestion(){
+ let q=questions[qIndex];
+ $("questionTitle").textContent="السؤال "+(qIndex+1)+" من 4 — "+q.type;
+ $("question").textContent=q.text;
+ $("feedback").textContent="";
+ $("answers").innerHTML="";
+ q.choices.forEach(choice=>{
+ let b=document.createElement("button");
+ b.textContent=choice;b.style.display="block";b.style.width="100%";
+ b.onclick=()=>answer(choice);
+ $("answers").appendChild(b);
+ });
+}
+function answer(choice){
+ let q=questions[qIndex];
+ let good=choice===q.answer;
+ if(good){score++;$("feedback").innerHTML="<span class='correct'>إجابة صحيحة! أحسنت يا "+name+" ⭐</span>";}
+ else{$("feedback").innerHTML="<span class='wrong'>الإجابة الصحيحة هي: "+q.answer+"</span>";}
+ [...$("answers").children].forEach(b=>b.disabled=true);
+ let next=document.createElement("button");
+ next.textContent=qIndex===3?"عرض النتيجة":"السؤال التالي";
+ next.onclick=()=>{
+  qIndex++;
+  if(qIndex<4)showQuestion();else showResult();
+ };
+ $("answers").appendChild(next);
+}
+function showResult(){
+ $("quiz").classList.add("hidden");
+ $("result").classList.remove("hidden");
+ if(score>=3){
+  stars+=5;
+  unlocked=Math.max(unlocked,Math.min(25,current+2));
+  localStorage.setItem("kevinStars",stars);
+  localStorage.setItem("kevinUnlocked",unlocked);
+  $("result").innerHTML="<h2>🎉 ممتاز يا "+name+"!</h2><p>نجحت في المستوى "+(current+1)+"</p><h2>⭐ +5 نجوم</h2><p>نتيجتك: "+score+" من 4</p><button onclick='back()'>العودة للمستويات</button>";
+ }else{
+  $("result").innerHTML="<h2>محاولة جميلة يا "+name+"!</h2><p>نتيجتك: "+score+" من 4</p><p>تحتاج 3 إجابات صحيحة للنجاح. راجع الكلمات وحاول مرة أخرى.</p><button onclick='openLesson(current)'>أعد الدرس</button><button onclick='back()'>المستويات</button>";
+ }
+ $("stars").textContent=stars;
+}
+function back(){
+ $("result").classList.add("hidden");
+ showLevels();
+}
+window.addEventListener("load",()=>{
+ let saved=localStorage.getItem("kevinName");
+ if(saved){$("studentName").value=saved;name=saved;start()}
+});
+</script>
+</body>
+</html>
