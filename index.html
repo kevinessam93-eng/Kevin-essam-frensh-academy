@@ -58,6 +58,10 @@ button:disabled{opacity:.38;cursor:not-allowed}
 .center{text-align:center}
 .hidden{display:none!important}
 .footer{text-align:center;color:#7fa7ba;font-size:12px;margin:24px 0}
+.choice-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.choice-grid button{background:#123d57;color:white;border:1px solid #57bdd255;box-shadow:none}
+.pill{display:inline-block;background:#0b6548;padding:10px 14px;border-radius:10px;margin:3px;font-weight:bold}
+.feedback{background:#09253a;border:1px solid #43db9b66;padding:13px;border-radius:12px;margin:12px 0;line-height:1.7}
 @media(max-width:520px){body{padding:12px}.level-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.panel{padding:14px}.speech:after{display:none}}
 </style>
 </head>
@@ -107,8 +111,17 @@ button:disabled{opacity:.38;cursor:not-allowed}
 <div class="progress"><i id="lessonProgress"></i></div>
 <h3>📚 كلمات احفظها واستمع لنطقها</h3>
 <div id="words"></div>
-<button onclick="startQuiz()">أنا مستعد للاختبار</button>
+<div id="lessonActions"></div>
 <button class="dark" onclick="backToLevels()">رجوع للمستويات</button>
+</div>
+
+<div id="practice" class="panel hidden">
+<div class="muted" id="practiceCounter"></div>
+<h2 id="practiceType"></h2>
+<p id="practiceQuestion"></p>
+<div id="practiceArea"></div>
+<div id="practiceFeedback" class="feedback hidden"></div>
+<div id="practiceActions"></div>
 </div>
 
 <div id="quiz" class="panel hidden">
@@ -116,12 +129,12 @@ button:disabled{opacity:.38;cursor:not-allowed}
 <h2 id="qType"></h2>
 <p id="question"></p>
 <div id="answers" class="options"></div>
-<p id="feedback" aria-live="polite"></p>
+<p id="feedback" class="feedback" aria-live="polite"></p>
+<div id="examActions"></div>
 </div>
 
 <div id="result" class="panel hidden center"></div>
 </section>
-
 <div class="footer">KEVIN ESSAM • APPRENONS LE FRANÇAIS ENSEMBLE</div>
 </main>
 
@@ -154,7 +167,103 @@ const L=[
 ["Révision finale","المراجعة النهائية","اختبر ما تعلمته في الأكاديمية",["Ami|صديق","Bonjour|صباح الخير","Maison|منزل","Livre|كتاب","Apprendre|يتعلم"]]
 ];
 
-let name="",current=0,stars=0,points=0,unlocked=1,completed=[],qs=[],qi=0,score=0;
+const SENTENCES={
+3:[
+["Le ciel est bleu.","La pomme est rouge."],
+["Le soleil est jaune.","Le chat est noir."]
+],
+4:[
+["Mon père aime le café.","Ma sœur lit un livre."],
+["Mon frère joue au football.","Ma mère boit de l'eau."]
+],
+5:[
+["Le chat dort dans la maison.","Le chien joue dans le parc."],
+["Le cheval court dans le champ.","Un oiseau chante le matin."]
+],
+6:[
+["Je mange une pomme.","Nous aimons le fromage."],
+["Elle boit du lait.","Ils mangent du pain."]
+],
+7:[
+["Le livre est sur la table.","J'écris avec un stylo."],
+["Mon cahier est dans le sac.","La maîtresse ouvre le livre."]
+],
+8:[
+["Je joue au football lundi.","Nous allons à l'école mardi."],
+["Elle visite sa grand-mère vendredi.","Ils étudient le français mercredi."]
+],
+9:[
+["J'ai deux mains.","Mon nez est petit."],
+["Il lave son visage.","Elle bouge la tête doucement."]
+],
+10:[
+["Je porte une chemise bleue.","Elle met ses chaussures."],
+["Mon frère porte un pantalon noir.","Nous achetons un chapeau."]
+],
+11:[
+["La porte de la maison est ouverte.","Ma chambre est grande."],
+["La cuisine est propre.","Le livre est près de la fenêtre."]
+],
+12:[
+["Je mange une banane le matin.","La mangue est très sucrée."],
+["Elle préfère les oranges.","Nous achetons des fraises au marché."]
+],
+13:[
+["Je voudrais un verre d'eau.","Mon père boit du café."],
+["Elle préfère le thé chaud.","Nous préparons un jus d'orange."]
+],
+14:[
+["Aujourd'hui, il y a du soleil.","Demain, il va pleuvoir."],
+["En hiver, la neige tombe.","Le vent souffle dans les arbres."]
+],
+15:[
+["Nous allons au cinéma ce soir.","Le magasin est près du parc."],
+["Elle travaille à l'hôpital.","Je marche dans la rue."]
+],
+16:[
+["Je vais à l'école en bus.","Le train arrive à huit heures."],
+["Nous voyageons en avion demain.","Mon père conduit une voiture."]
+],
+17:[
+["Je lis un livre chaque soir.","Elle écrit une lettre."],
+["Nous mangeons après l'école.","Ils boivent de l'eau froide."]
+],
+18:[
+["Le petit chien est rapide.","Cette maison est très grande."],
+["La voiture rouge est belle.","Mon frère est plus grand que moi."]
+],
+19:[
+["Je me réveille le matin.","Nous dormons pendant la nuit."],
+["Le cours commence à neuf heures.","Elle rentre à la maison le soir."]
+],
+20:[
+["Je joue au tennis le samedi.","Nous aimons la natation."],
+["Mon ami regarde le football.","Elle court dans le parc chaque matin."]
+],
+21:[
+["Le médecin travaille à l'hôpital.","Le professeur explique la leçon."],
+["L'ingénieur dessine un nouveau pont.","Le pilote voyage souvent en avion."]
+],
+22:[
+["Les fleurs poussent au printemps.","La rivière traverse la forêt."],
+["La montagne est très haute.","Les arbres sont près de la mer."]
+],
+23:[
+["Je suis heureux aujourd'hui.","Elle est calme pendant le cours."],
+["Il est triste parce qu'il pleut.","Nous sommes contents de vous voir."]
+],
+24:[
+["Mon téléphone est sur la chaise.","Je cherche la clé de la maison."],
+["La montre est dans mon sac.","La lampe éclaire la chambre."]
+],
+25:[
+["Après le petit déjeuner, je vais à l'école.","Mon ami préfère lire dans le jardin."],
+["Quand il fait beau, nous jouons au parc.","Elle prend le bus pour aller au marché."]
+]
+};
+
+let name="",current=0,stars=0,points=0,unlocked=1,completed=[];
+let questions=[],qi=0,score=0,mode="practice",answered=false,selectedWords=[];
 const $=id=>document.getElementById(id);
 
 function load(){
@@ -164,7 +273,6 @@ points=+(localStorage.getItem("kea_points")||0);
 unlocked=+(localStorage.getItem("kea_unlocked")||1);
 try{completed=JSON.parse(localStorage.getItem("kea_completed")||"[]")}catch(e){completed=[]}
 }
-
 function save(){
 localStorage.setItem("kea_name",name);
 localStorage.setItem("kea_stars",stars);
@@ -172,7 +280,6 @@ localStorage.setItem("kea_points",points);
 localStorage.setItem("kea_unlocked",unlocked);
 localStorage.setItem("kea_completed",JSON.stringify(completed));
 }
-
 function start(){
 let n=$("studentName").value.trim();
 if(!n){alert("اكتب اسمك أولًا");return}
@@ -181,13 +288,11 @@ $("welcome").classList.add("hidden");
 $("app").classList.remove("hidden");
 render();
 }
-
 function changeName(){
 $("app").classList.add("hidden");
 $("welcome").classList.remove("hidden");
 $("studentName").value=name;
 }
-
 function render(){
 $("hello").textContent="أهلاً يا "+name+"!";
 $("stars").textContent=stars;
@@ -203,12 +308,13 @@ b.onclick=()=>openLevel(i);
 $("levelGrid").appendChild(b);
 });
 }
-
+function hideScreens(){
+["lesson","practice","quiz","result"].forEach(id=>$(id).classList.add("hidden"));
+}
 function openLevel(i){
 current=i;
+hideScreens();
 $("lesson").classList.remove("hidden");
-$("quiz").classList.add("hidden");
-$("result").classList.add("hidden");
 $("levelNumber").textContent="LEVEL "+String(i+1).padStart(2,"0")+" / 25";
 $("lessonTitle").textContent=L[i][0]+" — "+L[i][1];
 $("lessonDesc").textContent=L[i][2];
@@ -219,7 +325,7 @@ let [fr,ar]=w.split("|");
 let d=document.createElement("div");
 d.className="word";
 let s=document.createElement("div");
-s.innerHTML="<b>"+fr+"</b><br><span>"+ar+"</span>";
+s.innerHTML="<b>"+escapeHTML(fr)+"</b><br><span>"+escapeHTML(ar)+"</span>";
 let b=document.createElement("button");
 b.className="secondary";
 b.textContent="🔊 استمع";
@@ -227,170 +333,112 @@ b.onclick=()=>speak(fr);
 d.append(s,b);
 $("words").appendChild(d);
 });
+$("lessonActions").innerHTML=current>=2?
+'<button onclick="beginPractice()">ابدأ التدريب قبل الامتحان 📘</button>':
+'<button onclick="startLegacyQuiz()">أنا مستعد للاختبار</button>';
 $("lesson").scrollIntoView({behavior:"smooth",block:"start"});
 }
-
 function speak(t){
 if(!window.speechSynthesis){alert("النطق غير مدعوم في هذا المتصفح");return}
 let u=new SpeechSynthesisUtterance(t);
-u.lang="fr-FR";
-u.rate=.82;
-speechSynthesis.cancel();
-speechSynthesis.speak(u);
+u.lang="fr-FR";u.rate=.82;
+speechSynthesis.cancel();speechSynthesis.speak(u);
 }
-
+function shuffle(a){
+let b=[...a];
+for(let i=b.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[b[i],b[j]]=[b[j],b[i]];
+}
+return b;
+}
 function makeChoices(correct,pool){
 let choices=[correct];
-let candidates=[...new Set(pool.filter(x=>x&&x!==correct))].sort(()=>Math.random()-.5);
+let candidates=shuffle([...new Set(pool.filter(x=>x&&x!==correct))]);
 while(choices.length<4&&candidates.length)choices.push(candidates.shift());
-return choices.sort(()=>Math.random()-.5);
+return shuffle(choices);
 }
-
-function startQuiz(){
-let vocab=L[current][3],all=L.flatMap(x=>x[3]);
-qs=[];
-let meanings=[...new Set(all.map(x=>x.split("|")[1]))];
-
-for(let i=0;i<2;i++){
-let [fr,ar]=vocab[i%vocab.length].split("|");
-let opts=makeChoices(ar,meanings);
-qs.push({type:"اختيار من متعدد",q:"ما معنى الكلمة الفرنسية: "+fr+"؟",opts,ans:ar});
+function wordPairs(){return L[current][3].map(x=>x.split("|"))}
+function getSentencePair(){
+return SENTENCES[current+1]||SENTENCES[25];
 }
-
-/* إصلاح سؤال أوجد المختلف */
-for(let i=0;i<2;i++){
-let base=[...vocab].sort(()=>Math.random()-.5).slice(0,3).map(x=>x.split("|")[0]);
-
-let outside=L
-.filter((lesson,index)=>index!==current)
-.flatMap(lesson=>lesson[3].map(x=>x.split("|")[0]))
-.filter(word=>!base.includes(word));
-
-let other=outside[Math.floor(Math.random()*outside.length)];
-let opts=[...base,other].sort(()=>Math.random()-.5);
-
-qs.push({
-type:"أوجد المختلف",
-q:"اختر الكلمة التي لا تنتمي إلى مجموعة الدرس.",
-opts,
-ans:other
-});
-}
-
-if(current>=5){
-let [fr,ar]=vocab[Math.min(3,vocab.length-1)].split("|");
-qs[0]={type:"ترجمة",q:"اختر الترجمة الصحيحة لكلمة "+fr,opts:makeChoices(ar,meanings),ans:ar};
-}
-
-qi=0;
-score=0;
-$("lesson").classList.add("hidden");
-$("quiz").classList.remove("hidden");
-showQ();
-}
-
-function showQ(){
-let q=qs[qi];
-$("qCounter").textContent="QUESTION "+(qi+1)+" / 4";
-$("qType").textContent=q.type;
-$("question").textContent=q.q;
-$("feedback").textContent="";
-$("answers").innerHTML="";
-q.opts.forEach(x=>{
-let b=document.createElement("button");
-b.textContent=x;
-b.onclick=()=>answer(x);
-$("answers").appendChild(b);
-});
-}
-
-function answer(x){
-let q=qs[qi],ok=x===q.ans;
-if(ok){
-score++;
-$("feedback").textContent="إجابة صحيحة! ممتاز يا "+name+" ⭐";
-}else{
-$("feedback").textContent="الإجابة الصحيحة: "+q.ans;
-}
-Array.from($("answers").children).forEach(b=>b.disabled=true);
-let b=document.createElement("button");
-b.textContent=qi===3?"اعرض النتيجة":"السؤال التالي";
-b.onclick=()=>{
-qi++;
-if(qi<4)showQ();
-else finish();
+function makeQuestionSet(which){
+let vocab=wordPairs();
+let all=L.flatMap(x=>x[3].map(y=>y.split("|")));
+let sentences=getSentencePair()[which];
+let orderQuestions=sentences.map(sentence=>{
+let clean=sentence.replace(/[.,!?]/g,"");
+return {
+type:"رتّب الجملة",
+kind:"order",
+prompt:"رتّب الكلمات لتكوين جملة فرنسية صحيحة.",
+words:shuffle(clean.split(" ")),
+answer:clean,
+explain:"انتبه لترتيب الفاعل والفعل وباقي كلمات الجملة."
 };
-$("answers").appendChild(b);
+});
+let choiceIndexes=which===0?[0,1]:[Math.min(2,vocab.length-1),Math.min(4,vocab.length-1)];
+let choiceQuestions=choiceIndexes.map(index=>{
+let pair=vocab[index];
+return {
+type:"اختر الإجابة الصحيحة",
+kind:"choice",
+prompt:"ما معنى الكلمة الفرنسية: "+pair[0]+"؟",
+options:makeChoices(pair[1],all.map(x=>x[1])),
+answer:pair[1],
+explain:pair[0]+" تعني "+pair[1]+"."
+};
+});
+let group=which===0?[0,1,2]:[Math.max(0,vocab.length-3),Math.max(0,vocab.length-2),vocab.length-1];
+let outsideIndex=(current+(which===0?8:13))%L.length;
+if(outsideIndex===current)outsideIndex=(outsideIndex+1)%L.length;
+let outside=L[outsideIndex][3][0].split("|")[0];
+let oddWords=group.map(i=>vocab[i][0]);
+if(oddWords.includes(outside))outside=L[(outsideIndex+1)%L.length][3][0].split("|")[0];
+oddWords.push(outside);
+let oddQuestion={
+type:"اكتشف الكلمة المختلفة",
+kind:"choice",
+prompt:"ثلاث كلمات تنتمي إلى موضوع «"+L[current][1]+"». اختر الكلمة التي لا تنتمي إليها.",
+options:shuffle(oddWords),
+answer:outside,
+explain:"الكلمة المختلفة لا تنتمي إلى موضوع "+L[current][1]+"."
+};
+return [...orderQuestions,...choiceQuestions,oddQuestion];
 }
-
-function avatar(){
-return `<svg class="avatar" viewBox="0 0 160 190" role="img" aria-label="شخصية ولد بشعر أسود كيرلي يرتدي قميصًا كحليًا وأخضر">
-<defs><linearGradient id="shirt" x2="1" y2="1"><stop stop-color="#102b55"/><stop offset="1" stop-color="#087b55"/></linearGradient></defs>
-<path d="M28 183 Q30 115 52 108 L108 108 Q133 117 137 183Z" fill="url(#shirt)" stroke="#4dff9e" stroke-width="3"/>
-<path d="M53 110 L80 130 L107 110" fill="none" stroke="#73ffad" stroke-width="7"/>
-<path d="M62 94 L62 117 Q80 132 98 117 L98 94" fill="#b96f4e"/>
-<ellipse cx="80" cy="67" rx="37" ry="43" fill="#c98765"/>
-<path d="M43 64 Q35 25 57 27 Q62 5 80 22 Q100 5 105 28 Q129 24 118 64 Q110 45 98 43 Q82 53 62 42 Q52 53 43 64Z" fill="#10121b"/>
-<g fill="#10121b"><circle cx="48" cy="35" r="12"/><circle cx="61" cy="22" r="12"/><circle cx="77" cy="20" r="13"/><circle cx="94" cy="23" r="12"/><circle cx="109" cy="35" r="12"/></g>
-<ellipse cx="67" cy="69" rx="3" ry="4" fill="#17202c"/>
-<ellipse cx="94" cy="69" rx="3" ry="4" fill="#17202c"/>
-<path d="M70 87 Q80 96 91 86" fill="none" stroke="#7a342e" stroke-width="3" stroke-linecap="round"/>
-<path d="M26 143 L8 113 Q4 103 13 99 Q22 96 29 109 L44 128" fill="#c98765"/>
-<path d="M133 143 L151 113 Q156 103 147 99 Q138 96 131 109 L116 128" fill="#c98765"/>
-<path d="M64 151 L80 160 L96 151" fill="none" stroke="#9dffbd" stroke-width="4"/>
-<text x="80" y="177" text-anchor="middle" fill="#8affb5" font-size="10" font-weight="bold">KEA</text>
-</svg>`;
+function beginPractice(){
+mode="practice";
+questions=makeQuestionSet(0);
+qi=0;score=0;
+hideScreens();
+$("practice").classList.remove("hidden");
+showPracticeQuestion();
 }
-
-function finish(){
-let pass=score>=3;
-if(pass){
-if(!completed.includes(current+1))completed.push(current+1);
-if(unlocked<25)unlocked=Math.max(unlocked,current+2);
-stars+=30;
-points+=10;
-save();
-}
-$("quiz").classList.add("hidden");
-$("result").classList.remove("hidden");
-
-$("result").innerHTML=pass?
-`<div class="character-wrap">${avatar()}<div class="speech"><h2>🎉 BRAVO, ${escapeHTML(name)}!</h2>أحسنت! لقد أكملت المستوى بنجاح. أنا فخور بتقدمك!<br><span style="color:#087c50">Tu es fantastique !</span></div></div>
-<h1 style="color:#8affb5">CONGRATULATIONS!</h1>
-<h2>LEVEL ${String(current+1).padStart(2,"0")} COMPLETED</h2>
-<p>${L[current][0]} — ${L[current][1]}</p>
-<div class="reward"><span>⭐ +30 نجمة</span><span>🏆 +10 نقاط</span></div>
-<p>نتيجتك: ${score} من 4</p>
-<button onclick="backToLevels()">العودة للمستويات</button>
-${current<24?'<button class="secondary" onclick="openLevel('+(current+1)+')">المستوى التالي ▶</button>':''}`
-:
-`<div class="character-wrap">${avatar()}<div class="speech"><h2>لا تستسلم يا ${escapeHTML(name)}!</h2>راجع الكلمات وحاول مرة أخرى. أنت تستطيع!<br><span style="color:#087c50">Courage !</span></div></div>
-<h2>نتيجتك ${score} من 4</h2>
-<p>تحتاج إلى 3 إجابات صحيحة للنجاح.</p>
-<button onclick="openLevel(current)">إعادة الدرس</button>
-<button class="dark" onclick="backToLevels()">المستويات</button>`;
-
-$("result").scrollIntoView({behavior:"smooth",block:"start"});
-render();
-}
-
-function escapeHTML(s){
-return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-
-function backToLevels(){
-$("lesson").classList.add("hidden");
-$("quiz").classList.add("hidden");
-$("result").classList.add("hidden");
-render();
-$("levelGrid").scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-load();
-if(name){
-$("studentName").value=name;
-start();
-}
-</script>
-</body>
-</html>
+function showPracticeQuestion(){
+answered=false;selectedWords=[];
+let q=questions[qi];
+$("practiceCounter").textContent="تدريب "+(qi+1)+" من 5";
+$("practiceType").textContent=q.type;
+$("practiceQuestion").textContent=q.prompt;
+$("practiceFeedback").classList.add("hidden");
+$("practiceActions").innerHTML="";
+let area=$("practiceArea");
+area.innerHTML="";
+if(q.kind==="order"){
+let tray=document.createElement("div");
+tray.className="choice-grid";
+q.words.forEach(w=>{
+let b=document.createElement("button");
+b.textContent=w;
+b.onclick=()=>{
+if(answered||b.disabled)return;
+selectedWords.push(w);
+b.disabled=true;
+renderSelectedOrder();
+};
+tray.appendChild(b);
+});
+area.appendChild(tray);
+let selected=document.createElement("div");
+selected.id="selectedOrder";
+  
