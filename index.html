@@ -1,1015 +1,444 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b30">
 <title>Kevin Essam | French Academy</title>
-
 <style>
-:root {
-  --navy: #06172b;
-  --navy2: #0b2940;
-  --blue: #123f59;
-  --green: #20e68a;
-  --white: #ffffff;
-  --muted: #a9bdce;
-  --red: #ff5d6c;
-  --gold: #ffd166;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background: var(--navy);
-  color: var(--white);
-  min-height: 100vh;
-}
-
-button, input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-}
-
-.app {
-  width: 100%;
-  max-width: 850px;
-  margin: auto;
-  padding: 18px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--green);
-}
-
-.points {
-  background: var(--navy2);
-  border: 1px solid #25445b;
-  padding: 10px 14px;
-  border-radius: 14px;
-  color: var(--gold);
-  font-weight: bold;
-}
-
-.panel {
-  background: var(--navy2);
-  border: 1px solid #25445b;
-  border-radius: 20px;
-  padding: 22px;
-  margin-bottom: 18px;
-}
-
-.center {
-  text-align: center;
-}
-
-h1 {
-  font-size: 27px;
-  margin-bottom: 12px;
-}
-
-h2 {
-  font-size: 22px;
-  margin-bottom: 15px;
-}
-
-p {
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-input {
-  width: 100%;
-  padding: 15px;
-  border-radius: 12px;
-  border: 1px solid #426078;
-  background: #06172b;
-  color: white;
-  margin: 15px 0;
-  outline: none;
-}
-
-input:focus {
-  border-color: var(--green);
-}
-
-.main-btn {
-  width: 100%;
-  padding: 15px;
-  border-radius: 12px;
-  background: var(--green);
-  color: #06172b;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.secondary-btn {
-  padding: 12px 18px;
-  border-radius: 12px;
-  background: #17415c;
-  color: white;
-  margin: 5px;
-}
-
-.option-btn {
-  width: 100%;
-  padding: 14px;
-  margin: 7px 0;
-  border-radius: 12px;
-  background: #123f59;
-  color: white;
-  border: 1px solid #315a73;
-  text-align: center;
-}
-
-.option-btn:hover {
-  border-color: var(--green);
-}
-
-.option-btn.correct {
-  background: #126b48;
-  border-color: var(--green);
-}
-
-.option-btn.wrong {
-  background: #782d3b;
-  border-color: var(--red);
-}
-
-.level-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-}
-
-.level {
-  background: #123f59;
-  border: 1px solid #315a73;
-  border-radius: 13px;
-  padding: 15px 5px;
-  color: white;
-  text-align: center;
-}
-
-.level.open {
-  border-color: var(--green);
-}
-
-.level.locked {
-  opacity: .4;
-  cursor: not-allowed;
-}
-
-.progress {
-  height: 10px;
-  background: #06172b;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 15px 0;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--green);
-  transition: width .3s;
-}
-
-.word {
-  font-size: 32px;
-  color: var(--green);
-  font-weight: bold;
-  margin: 20px 0;
-  direction: ltr;
-}
-
-.feedback {
-  margin: 15px 0;
-  font-weight: bold;
-  min-height: 25px;
-}
-
-.hidden {
-  display: none !important;
-}
-
-footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-  padding: 20px;
-}
-
-@media (max-width: 500px) {
-  .app {
-    padding: 12px;
-  }
-
-  .level-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  h1 {
-    font-size: 23px;
-  }
-}
+:root{--navy:#06172b;--navy2:#0b2940;--blue:#123f59;--green:#20e68a;--green2:#8affbd;--white:#f4fbff;--muted:#a9c4d4;--gold:#ffd45e}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 15% 5%,#10513f 0,transparent 34%),linear-gradient(145deg,#061426,#092a43 58%,#06172b);color:var(--white);font-family:Arial,Tahoma,sans-serif;min-height:100vh;padding:18px;overflow-x:hidden}
+body:before{content:"KEVIN ESSAM";position:fixed;z-index:0;top:38%;left:-8%;font-size:clamp(42px,10vw,100px);font-weight:1000;letter-spacing:5px;color:#c9ffdf0b;transform:rotate(-25deg);white-space:nowrap;pointer-events:none}
+main{max-width:900px;margin:auto;position:relative;z-index:1}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:4px 0 18px}
+.brand{font-weight:1000;font-size:clamp(22px,5vw,34px);font-style:italic;letter-spacing:-1px}
+.brand span{color:var(--green)}
+.tag{font-size:11px;letter-spacing:2px;color:var(--green2);border:1px solid #37e99b66;border-radius:30px;padding:8px 12px}
+.panel{background:linear-gradient(135deg,#102f48ed,#092338ed);border:1px solid #6bd9c044;border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 14px 40px #0004;backdrop-filter:blur(8px)}
+.hero{background:linear-gradient(115deg,#0e6549,#123b55 58%,#0a2038);border:1px solid #64ffc366}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(25px,6vw,40px);margin-bottom:8px}
+h2{color:var(--green2);font-size:22px}
+p{line-height:1.65}
+.muted{color:var(--muted);font-size:14px}
+input{width:100%;padding:15px;border-radius:13px;border:1px solid #6ee9b477;background:#061b2e;color:white;font-size:17px;margin:8px 0}
+button{border:0;border-radius:13px;padding:12px 16px;background:linear-gradient(110deg,#21e58a,#83ffb2);color:#062319;font-weight:900;font-size:15px;cursor:pointer;margin:4px;box-shadow:0 5px 18px #0be68a22}
+button.secondary{background:linear-gradient(110deg,#1677a7,#42c8ed);color:#fff}
+button.dark{background:#183d55;color:#e8faff;border:1px solid #4f9bb4}
+button:disabled{opacity:.38;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}
+.stat{background:#061c30aa;border:1px solid #62e9b533;border-radius:15px;padding:12px;text-align:center}
+.stat b{display:block;color:var(--green2);font-size:23px}
+.stat small{color:var(--muted)}
+.level-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.level{margin:0;text-align:right;display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#123a50,#0b263d);border:1px solid #4acb9a44;color:white;box-shadow:none;padding:12px;min-height:75px}
+.level .num{font-size:24px;font-weight:1000;color:var(--green);min-width:34px}
+.level .words{flex:1}
+.level strong{display:block;font-size:14px}
+.level small{color:#b8d4e1}
+.level .lock{font-size:18px}
+.level.done{border-color:#35e994}
+.level.active{background:linear-gradient(110deg,#146a4c,#12516b);box-shadow:0 0 18px #22e88a22}
+.word{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#0a2237;border:1px solid #2b6b70;border-radius:13px;padding:10px 12px;margin:8px 0}
+.word b{font-size:18px;color:#8affbd}
+.word span{color:#d5eaf2}
+.progress{height:9px;background:#061a2b;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#13bd75,#78ffb0);width:0}
+.options{display:grid;gap:8px}
+.options button{width:100%;text-align:right;background:#123d57;color:white;border:1px solid #57bdd255;box-shadow:none}
+.options button:disabled{opacity:.8}
+.character-wrap{display:flex;align-items:center;gap:16px;justify-content:center;flex-wrap:wrap}
+.avatar{width:150px;height:180px;flex:0 0 150px;filter:drop-shadow(0 8px 15px #0005)}
+.speech{background:#f1fff8;color:#08243a;border-radius:18px;padding:15px;max-width:430px;font-weight:bold;position:relative}
+.speech:after{content:"";position:absolute;right:-10px;top:25px;border-width:10px 0 10px 12px;border-style:solid;border-color:transparent transparent transparent #f1fff8}
+.reward{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.reward span{background:#09253a;border:1px solid #43db9b66;padding:10px 16px;border-radius:13px;color:#ffe17c;font-weight:bold}
+.center{text-align:center}
+.hidden{display:none!important}
+.footer{text-align:center;color:#7fa7ba;font-size:12px;margin:24px 0}
+.choice-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.choice-grid button{background:#123d57;color:white;border:1px solid #57bdd255;box-shadow:none}
+.pill{display:inline-block;background:#0b6548;padding:10px 14px;border-radius:10px;margin:3px;font-weight:bold}
+.feedback{background:#09253a;border:1px solid #43db9b66;padding:13px;border-radius:12px;margin:12px 0;line-height:1.7}
+@media(max-width:520px){body{padding:12px}.level-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.panel{padding:14px}.speech:after{display:none}}
 </style>
 </head>
 <body>
-<div class="app">
-
+<main>
 <header>
-  <div class="logo">🇫🇷 French Academy</div>
-  <div class="points">⭐ <span id="points">0</span></div>
+<div class="brand">KEVIN <span>ESSAM</span></div>
+<div class="tag">FRENCH ACADEMY • 25 LEVELS</div>
 </header>
 
-<section id="welcome" class="panel center">
-  <h1>Bienvenue ! 🇫🇷</h1>
-  <p>أهلاً بك في أكاديمية Kevin Essam لتعلم اللغة الفرنسية.</p>
-  <p>اكتب اسمك لنبدأ رحلة التعلم!</p>
-  <input id="studentName" type="text" placeholder="اكتب اسمك هنا">
-  <button class="main-btn" onclick="startApp()">ابدأ التعلم 🚀</button>
-  <div id="welcomeError" class="feedback"></div>
+<section id="welcome" class="panel hero center">
+<h1>🇫🇷 أهلاً بك في أكاديمية الفرنسية</h1>
+<p>رحلتك لتعلّم الفرنسية تبدأ من هنا!</p>
+<label for="studentName">اكتب اسمك</label>
+<input id="studentName" placeholder="مثلاً: Kevin Essam" maxlength="32">
+<button onclick="start()">ابدأ المغامرة 🚀</button>
+<p class="muted">تعلم • استمع • اختبر نفسك • اجمع النجوم</p>
 </section>
 
-<section id="home" class="hidden">
-  <div class="panel center">
-    <h2 id="welcomeTitle">أهلاً بك!</h2>
-    <p>استمر في التعلم وافتح جميع المستويات الـ 25.</p>
-    <div class="progress">
-      <div class="progress-fill" id="mainProgress"></div>
-    </div>
-    <p id="progressText">0 من 25 مستوى</p>
-  </div>
-
-  <div class="panel">
-    <h2>📚 المستويات</h2>
-    <div class="level-grid" id="levelGrid"></div>
-  </div>
-</section>
-
-<section id="lesson" class="hidden">
-  <div class="panel center">
-    <h2 id="lessonTitle">المستوى الأول</h2>
-    <p id="lessonDescription">تعلم الكلمات الجديدة</p>
-    <div id="lessonWords"></div>
-    <button class="main-btn" onclick="startPractice()">ابدأ التدريب</button>
-    <button class="secondary-btn" onclick="goHome()">العودة للمستويات</button>
-  </div>
-</section>
-
-<section id="practice" class="hidden">
-  <div class="panel center">
-    <h2>🧠 التدريب</h2>
-    <p id="practiceCounter"></p>
-    <div class="progress">
-      <div class="progress-fill" id="practiceProgress"></div>
-    </div>
-    <h2 id="practiceQuestion"></h2>
-    <div id="practiceOptions"></div>
-    <div id="practiceFeedback" class="feedback"></div>
-    <button id="nextPractice" class="main-btn hidden" onclick="nextPracticeQuestion()">السؤال التالي</button>
-  </div>
-</section>
-
-<section id="exam" class="hidden">
-  <div class="panel center">
-    <h2>🏆 امتحان المستوى</h2>
-    <p id="examCounter"></p>
-    <div class="progress">
-      <div class="progress-fill" id="examProgress"></div>
-    </div>
-    <h2 id="examQuestion"></h2>
-    <div id="examOptions"></div>
-    <div id="examFeedback" class="feedback"></div>
-    <button id="nextExam" class="main-btn hidden" onclick="nextExamQuestion()">السؤال التالي</button>
-  </div>
-</section>
-
-<section id="result" class="hidden">
-  <div class="panel center">
-    <h1 id="resultTitle">أحسنت!</h1>
-    <p id="resultText"></p>
-    <div class="word" id="resultScore"></div>
-    <button id="resultButton" class="main-btn" onclick="goHome()">العودة للمستويات</button>
-  </div>
-</section>
-
-<footer>
-  Kevin Essam | French Academy
-</footer>
-
+<section id="app" class="hidden">
+<div class="panel hero">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+<div>
+<div class="muted">BONJOUR!</div>
+<h1 id="hello">أهلاً!</h1>
+<div class="muted">استمر في التقدم، كل مستوى يقربك من الطلاقة.</div>
+</div>
+<button class="dark" onclick="changeName()">تغيير الاسم</button>
+</div>
+<div class="stats">
+<div class="stat"><b id="stars">0</b><small>⭐ النجوم</small></div>
+<div class="stat"><b id="done">0/25</b><small>المستويات</small></div>
+<div class="stat"><b id="points">0</b><small>النقاط</small></div>
+</div>
 </div>
 
+<div class="panel">
+<h2>اختر المستوى | CHOOSE YOUR LEVEL</h2>
+<p class="muted">المستويات تزداد صعوبة تدريجيًا. أكمل المستوى لفتح التالي.</p>
+<div id="levelGrid" class="level-grid"></div>
+</div>
+
+<div id="lesson" class="panel hidden">
+<div class="muted" id="levelNumber"></div>
+<h2 id="lessonTitle"></h2>
+<p id="lessonDesc" class="muted"></p>
+<div class="progress"><i id="lessonProgress"></i></div>
+<h3>📚 كلمات احفظها واستمع لنطقها</h3>
+<div id="words"></div>
+<div id="lessonActions"></div>
+<button class="dark" onclick="backToLevels()">رجوع للمستويات</button>
+</div>
+
+<div id="practice" class="panel hidden">
+<div class="muted" id="practiceCounter"></div>
+<h2 id="practiceType"></h2>
+<p id="practiceQuestion"></p>
+<div id="practiceArea"></div>
+<div id="practiceFeedback" class="feedback hidden"></div>
+<div id="practiceActions"></div>
+</div>
+
+<div id="quiz" class="panel hidden">
+<div class="muted" id="qCounter"></div>
+<h2 id="qType"></h2>
+<p id="question"></p>
+<div id="answers" class="options"></div>
+<p id="feedback" class="feedback" aria-live="polite"></p>
+<div id="examActions"></div>
+</div>
+
+<div id="result" class="panel hidden center"></div>
+</section>
+<div class="footer">KEVIN ESSAM • APPRENONS LE FRANÇAIS ENSEMBLE</div>
+</main>
+
 <script>
-const levels = [
-  {
-    title: "التحيات",
-    words: [
-      ["Bonjour", "صباح الخير"],
-      ["Bonsoir", "مساء الخير"],
-      ["Salut", "أهلاً"],
-      ["Merci", "شكراً"],
-      ["Au revoir", "إلى اللقاء"]
-    ]
-  },
-  {
-    title: "التعارف",
-    words: [
-      ["Comment", "كيف"],
-      ["Tu", "أنت"],
-      ["Je", "أنا"],
-      ["M'appelle", "اسمي"],
-      ["Enchanté", "تشرفت بمعرفتك"]
-    ]
-  },
-  {
-    title: "الأرقام",
-    words: [
-      ["Un", "واحد"],
-      ["Deux", "اثنان"],
-      ["Trois", "ثلاثة"],
-      ["Quatre", "أربعة"],
-      ["Cinq", "خمسة"]
-    ]
-  },
-  {
-    title: "الألوان",
-    words: [
-      ["Rouge", "أحمر"],
-      ["Bleu", "أزرق"],
-      ["Vert", "أخضر"],
-      ["Jaune", "أصفر"],
-      ["Noir", "أسود"]
-    ]
-  },
-  {
-    title: "العائلة",
-    words: [
-      ["Père", "أب"],
-      ["Mère", "أم"],
-      ["Frère", "أخ"],
-      ["Sœur", "أخت"],
-      ["Famille", "عائلة"]
-    ]
-  },
-  {
-    title: "المدرسة",
-    words: [
-      ["École", "مدرسة"],
-      ["Livre", "كتاب"],
-      ["Stylo", "قلم"],
-      ["Professeur", "معلم"],
-      ["Élève", "تلميذ"]
-    ]
-  },
-  {
-    title: "الحيوانات",
-    words: [
-      ["Chat", "قطة"],
-      ["Chien", "كلب"],
-      ["Oiseau", "طائر"],
-      ["Poisson", "سمكة"],
-      ["Cheval", "حصان"]
-    ]
-  },
-  {
-    title: "الطعام",
-    words: [
-      ["Pain", "خبز"],
-      ["Pomme", "تفاحة"],
-      ["Lait", "حليب"],
-      ["Eau", "ماء"],
-      ["Fromage", "جبن"]
-    ]
-  },
-  {
-    title: "أيام الأسبوع",
-    words: [
-      ["Lundi", "الاثنين"],
-      ["Mardi", "الثلاثاء"],
-      ["Mercredi", "الأربعاء"],
-      ["Jeudi", "الخميس"],
-      ["Vendredi", "الجمعة"]
-    ]
-  },
-  {
-    title: "أجزاء الجسم",
-    words: [
-      ["Tête", "رأس"],
-      ["Main", "يد"],
-      ["Pied", "قدم"],
-      ["Yeux", "عيون"],
-      ["Nez", "أنف"]
-    ]
-  },
-  {
-    title: "الملابس",
-    words: [
-      ["Chemise", "قميص"],
-      ["Pantalon", "بنطال"],
-      ["Chaussures", "حذاء"],
-      ["Robe", "فستان"],
-      ["Chapeau", "قبعة"]
-    ]
-  },
-  {
-    title: "المنزل",
-    words: [
-      ["Maison", "منزل"],
-      ["Porte", "باب"],
-      ["Fenêtre", "نافذة"],
-      ["Chambre", "غرفة"],
-      ["Cuisine", "مطبخ"]
-    ]
-  },
-  {
-    title: "الطقس",
-    words: [
-      ["Soleil", "شمس"],
-      ["Pluie", "مطر"],
-      ["Neige", "ثلج"],
-      ["Vent", "رياح"],
-      ["Nuage", "سحابة"]
-    ]
-  },
-  {
-    title: "المشاعر",
-    words: [
-      ["Heureux", "سعيد"],
-      ["Triste", "حزين"],
-      ["Fatigué", "متعب"],
-      ["Content", "مسرور"],
-      ["Calme", "هادئ"]
-    ]
-  },
-  {
-    title: "الأماكن",
-    words: [
-      ["Hôpital", "مستشفى"],
-      ["Magasin", "متجر"],
-      ["Parc", "حديقة"],
-      ["Rue", "شارع"],
-      ["Restaurant", "مطعم"]
-    ]
-  },
-  {
-    title: "الأفعال",
-    words: [
-      ["Manger", "يأكل"],
-      ["Boire", "يشرب"],
-      ["Dormir", "ينام"],
-      ["Lire", "يقرأ"],
-      ["Écrire", "يكتب"]
-    ]
-  },
-  {
-    title: "الوقت",
-    words: [
-      ["Aujourd'hui", "اليوم"],
-      ["Demain", "غداً"],
-      ["Hier", "أمس"],
-      ["Matin", "صباح"],
-      ["Soir", "مساء"]
-    ]
-  },
-  {
-    title: "وسائل النقل",
-    words: [
-      ["Voiture", "سيارة"],
-      ["Train", "قطار"],
-      ["Avion", "طائرة"],
-      ["Bus", "حافلة"],
-      ["Vélo", "دراجة"]
-    ]
-  },
-  {
-    title: "الطبيعة",
-    words: [
-      ["Arbre", "شجرة"],
-      ["Fleur", "زهرة"],
-      ["Mer", "بحر"],
-      ["Montagne", "جبل"],
-      ["Forêt", "غابة"]
-    ]
-  },
-  {
-    title: "المهن",
-    words: [
-      ["Médecin", "طبيب"],
-      ["Ingénieur", "مهندس"],
-      ["Enseignant", "مدرس"],
-      ["Cuisinier", "طباخ"],
-      ["Policier", "شرطي"]
-    ]
-  },
-  {
-    title: "الرياضة",
-    words: [
-      ["Football", "كرة القدم"],
-      ["Natation", "السباحة"],
-      ["Tennis", "التنس"],
-      ["Course", "الجري"],
-      ["Basketball", "كرة السلة"]
-    ]
-  },
-  {
-    title: "التسوق",
-    words: [
-      ["Prix", "سعر"],
-      ["Argent", "مال"],
-      ["Acheter", "يشتري"],
-      ["Vendre", "يبيع"],
-      ["Cher", "غالي"]
-    ]
-  },
-  {
-    title: "وصف الأشياء",
-    words: [
-      ["Grand", "كبير"],
-      ["Petit", "صغير"],
-      ["Rapide", "سريع"],
-      ["Lent", "بطيء"],
-      ["Beau", "جميل"]
-    ]
-  },
-  {
-    title: "جمل يومية",
-    words: [
-      ["Je comprends", "أنا أفهم"],
-      ["Je ne sais pas", "لا أعرف"],
-      ["S'il vous plaît", "من فضلك"],
-      ["Excusez-moi", "عذراً"],
-      ["À bientôt", "أراك قريباً"]
-    ]
-  },
-  {
-    title: "مراجعة شاملة",
-    words: [
-      ["Bonjour", "صباح الخير"],
-      ["Famille", "عائلة"],
-      ["École", "مدرسة"],
-      ["Merci", "شكراً"],
-      ["Au revoir", "إلى اللقاء"]
-    ]
-  }
+const L=[
+["Les salutations","التحيات","تعرّف على أشهر كلمات الترحيب",["Bonjour|صباح الخير","Salut|أهلًا","Bonsoir|مساء الخير","Merci|شكرًا","Au revoir|إلى اللقاء"]],
+["Les nombres","الأرقام من 1 إلى 15","تعلّم العد من واحد إلى خمسة عشر",["Un|واحد","Deux|اثنان","Trois|ثلاثة","Quatre|أربعة","Cinq|خمسة","Six|ستة","Sept|سبعة","Huit|ثمانية","Neuf|تسعة","Dix|عشرة","Onze|أحد عشر","Douze|اثنا عشر","Treize|ثلاثة عشر","Quatorze|أربعة عشر","Quinze|خمسة عشر"]],
+["Les couleurs","الألوان","صف الأشياء من حولك",["Rouge|أحمر","Bleu|أزرق","Vert|أخضر","Jaune|أصفر","Noir|أسود"]],
+["La famille","العائلة","تحدث عن أفراد عائلتك",["Père|أب","Mère|أم","Frère|أخ","Sœur|أخت","Famille|عائلة"]],
+["Les animaux","الحيوانات","أسماء حيوانات مألوفة",["Chat|قطة","Chien|كلب","Cheval|حصان","Lapin|أرنب","Oiseau|طائر"]],
+["La nourriture","الطعام","كلمات تستخدمها وقت الطعام",["Pain|خبز","Lait|حليب","Pomme|تفاحة","Fromage|جبن","Riz|أرز"]],
+["À l'école","في المدرسة","أدوات وأماكن المدرسة",["École|مدرسة","Livre|كتاب","Stylo|قلم","Cahier|كراسة","Gomme|ممحاة"]],
+["Les jours","أيام الأسبوع","قل أيام الأسبوع بالفرنسية",["Lundi|الاثنين","Mardi|الثلاثاء","Mercredi|الأربعاء","Jeudi|الخميس","Vendredi|الجمعة","Samedi|السبت","Dimanche|الأحد"]],
+["Le corps","أجزاء الجسم","أسماء أجزاء الجسم",["Tête|رأس","Main|يد","Pied|قدم","Nez|أنف","Bouche|فم"]],
+["Les vêtements","الملابس","ماذا ترتدي؟",["Chemise|قميص","Pantalon|بنطال","Robe|فستان","Chaussures|حذاء","Chapeau|قبعة"]],
+["La maison","المنزل","غرف وأشياء في البيت",["Maison|منزل","Porte|باب","Fenêtre|نافذة","Cuisine|مطبخ","Chambre|غرفة"]],
+["Les fruits","الفواكه","أسماء فواكه متنوعة",["Banane|موز","Orange|برتقال","Fraise|فراولة","Raisin|عنب","Mangue|مانجو"]],
+["Les boissons","المشروبات","اطلب مشروبك بالفرنسية",["Eau|ماء","Jus|عصير","Café|قهوة","Thé|شاي","Limonade|ليمونادة"]],
+["La météo","الطقس","صف حالة الجو",["Soleil|شمس","Pluie|مطر","Neige|ثلج","Vent|رياح","Nuage|سحابة"]],
+["Les lieux","الأماكن","أماكن في المدينة",["Parc|حديقة","Hôpital|مستشفى","Magasin|متجر","Cinéma|سينما","Rue|شارع"]],
+["Les transports","المواصلات","وسائل النقل",["Voiture|سيارة","Bus|حافلة","Train|قطار","Avion|طائرة","Vélo|دراجة"]],
+["Les verbes","الأفعال","أفعال يومية مهمة",["Manger|يأكل","Boire|يشرب","Dormir|ينام","Lire|يقرأ","Écrire|يكتب"]],
+["Les adjectifs","الصفات","صف الأشخاص والأشياء",["Grand|كبير","Petit|صغير","Beau|جميل","Rapide|سريع","Lent|بطيء"]],
+["L'heure et le temps","الوقت","كلمات عن الوقت",["Heure|ساعة","Matin|صباح","Soir|مساء","Jour|يوم","Nuit|ليل"]],
+["Le sport","الرياضة","رياضات مختلفة",["Football|كرة القدم","Tennis|تنس","Natation|سباحة","Basket|كرة السلة","Course|جري"]],
+["Les métiers","المهن","تعرّف على المهن",["Médecin|طبيب","Professeur|معلم","Ingénieur|مهندس","Cuisinier|طباخ","Pilote|طيار"]],
+["La nature","الطبيعة","كلمات من العالم الطبيعي",["Arbre|شجرة","Fleur|زهرة","Mer|بحر","Montagne|جبل","Rivière|نهر"]],
+["Les émotions","المشاعر","عبّر عن شعورك",["Joie|فرح","Tristesse|حزن","Amour|حب","Peur|خوف","Calme|هدوء"]],
+["La vie quotidienne","الحياة اليومية","أشياء تستخدمها كل يوم",["Téléphone|هاتف","Montre|ساعة يد","Clé|مفتاح","Chaise|كرسي","Lampe|مصباح"]],
+["Révision finale","المراجعة النهائية","اختبر ما تعلمته في الأكاديمية",["Ami|صديق","Bonjour|صباح الخير","Maison|منزل","Livre|كتاب","Apprendre|يتعلم"]]
 ];
-  let student = "";
-let points = 0;
-let unlocked = 1;
-let completed = [];
-let currentLevel = 0;
-let practiceQuestions = [];
-let examQuestions = [];
-let questionIndex = 0;
-let score = 0;
-let selectedAnswer = null;
 
-function save() {
-  localStorage.setItem("frenchAcademy", JSON.stringify({
-    student, points, unlocked, completed
-  }));
+const SENTENCES={
+3:[
+["Le ciel est bleu.","La pomme est rouge."],
+["Le soleil est jaune.","Le chat est noir."]
+],
+4:[
+["Mon père aime le café.","Ma sœur lit un livre."],
+["Mon frère joue au football.","Ma mère boit de l'eau."]
+],
+5:[
+["Le chat dort dans la maison.","Le chien joue dans le parc."],
+["Le cheval court dans le champ.","Un oiseau chante le matin."]
+],
+6:[
+["Je mange une pomme.","Nous aimons le fromage."],
+["Elle boit du lait.","Ils mangent du pain."]
+],
+7:[
+["Le livre est sur la table.","J'écris avec un stylo."],
+["Mon cahier est dans le sac.","La maîtresse ouvre le livre."]
+],
+8:[
+["Je joue au football lundi.","Nous allons à l'école mardi."],
+["Elle visite sa grand-mère vendredi.","Ils étudient le français mercredi."]
+],
+9:[
+["J'ai deux mains.","Mon nez est petit."],
+["Il lave son visage.","Elle bouge la tête doucement."]
+],
+10:[
+["Je porte une chemise bleue.","Elle met ses chaussures."],
+["Mon frère porte un pantalon noir.","Nous achetons un chapeau."]
+],
+11:[
+["La porte de la maison est ouverte.","Ma chambre est grande."],
+["La cuisine est propre.","Le livre est près de la fenêtre."]
+],
+12:[
+["Je mange une banane le matin.","La mangue est très sucrée."],
+["Elle préfère les oranges.","Nous achetons des fraises au marché."]
+],
+13:[
+["Je voudrais un verre d'eau.","Mon père boit du café."],
+["Elle préfère le thé chaud.","Nous préparons un jus d'orange."]
+],
+14:[
+["Aujourd'hui, il y a du soleil.","Demain, il va pleuvoir."],
+["En hiver, la neige tombe.","Le vent souffle dans les arbres."]
+],
+15:[
+["Nous allons au cinéma ce soir.","Le magasin est près du parc."],
+["Elle travaille à l'hôpital.","Je marche dans la rue."]
+],
+16:[
+["Je vais à l'école en bus.","Le train arrive à huit heures."],
+["Nous voyageons en avion demain.","Mon père conduit une voiture."]
+],
+17:[
+["Je lis un livre chaque soir.","Elle écrit une lettre."],
+["Nous mangeons après l'école.","Ils boivent de l'eau froide."]
+],
+18:[
+["Le petit chien est rapide.","Cette maison est très grande."],
+["La voiture rouge est belle.","Mon frère est plus grand que moi."]
+],
+19:[
+["Je me réveille le matin.","Nous dormons pendant la nuit."],
+["Le cours commence à neuf heures.","Elle rentre à la maison le soir."]
+],
+20:[
+["Je joue au tennis le samedi.","Nous aimons la natation."],
+["Mon ami regarde le football.","Elle court dans le parc chaque matin."]
+],
+21:[
+["Le médecin travaille à l'hôpital.","Le professeur explique la leçon."],
+["L'ingénieur dessine un nouveau pont.","Le pilote voyage souvent en avion."]
+],
+22:[
+["Les fleurs poussent au printemps.","La rivière traverse la forêt."],
+["La montagne est très haute.","Les arbres sont près de la mer."]
+],
+23:[
+["Je suis heureux aujourd'hui.","Elle est calme pendant le cours."],
+["Il est triste parce qu'il pleut.","Nous sommes contents de vous voir."]
+],
+24:[
+["Mon téléphone est sur la chaise.","Je cherche la clé de la maison."],
+["La montre est dans mon sac.","La lampe éclaire la chambre."]
+],
+25:[
+["Après le petit déjeuner, je vais à l'école.","Mon ami préfère lire dans le jardin."],
+["Quand il fait beau, nous jouons au parc.","Elle prend le bus pour aller au marché."]
+]
+};
+
+let name="",current=0,stars=0,points=0,unlocked=1,completed=[];
+let questions=[],qi=0,score=0,mode="practice",answered=false,selectedWords=[];
+const $=id=>document.getElementById(id);
+
+function load(){
+name=localStorage.getItem("kea_name")||"";
+stars=+(localStorage.getItem("kea_stars")||0);
+points=+(localStorage.getItem("kea_points")||0);
+unlocked=+(localStorage.getItem("kea_unlocked")||1);
+try{completed=JSON.parse(localStorage.getItem("kea_completed")||"[]")}catch(e){completed=[]}
 }
-
-function load() {
-  try {
-    const data = JSON.parse(localStorage.getItem("frenchAcademy"));
-    if (data) {
-      student = data.student || "";
-      points = data.points || 0;
-      unlocked = data.unlocked || 1;
-      completed = data.completed || [];
-    }
-  } catch (e) {}
+function save(){
+localStorage.setItem("kea_name",name);
+localStorage.setItem("kea_stars",stars);
+localStorage.setItem("kea_points",points);
+localStorage.setItem("kea_unlocked",unlocked);
+localStorage.setItem("kea_completed",JSON.stringify(completed));
 }
-
-function showScreen(id) {
-  ["welcome", "home", "lesson", "practice", "exam", "result"]
-    .forEach(screen => document.getElementById(screen).classList.add("hidden"));
-
-  document.getElementById(id).classList.remove("hidden");
+function start(){
+let n=$("studentName").value.trim();
+if(!n){alert("اكتب اسمك أولًا");return}
+name=n;save();
+$("welcome").classList.add("hidden");
+$("app").classList.remove("hidden");
+render();
 }
-
-function startApp() {
-  const name = document.getElementById("studentName").value.trim();
-
-  if (!name) {
-    document.getElementById("welcomeError").textContent =
-      "من فضلك اكتب اسمك أولاً!";
-    return;
-  }
-
-  student = name;
-  save();
-  showHome();
+function changeName(){
+$("app").classList.add("hidden");
+$("welcome").classList.remove("hidden");
+$("studentName").value=name;
 }
-
-function showHome() {
-  showScreen("home");
-
-  document.getElementById("welcomeTitle").textContent =
-    "أهلاً يا " + student + " 👋";
-
-  document.getElementById("points").textContent = points;
-
-  document.getElementById("mainProgress").style.width =
-    (completed.length / 25 * 100) + "%";
-
-  document.getElementById("progressText").textContent =
-    completed.length + " من 25 مستوى";
-
-  const grid = document.getElementById("levelGrid");
-  grid.innerHTML = "";
-
-  levels.forEach((level, index) => {
-    const number = index + 1;
-    const unlockedLevel = number <= unlocked;
-    const done = completed.includes(number);
-
-    const button = document.createElement("button");
-    button.className = "level " +
-      (unlockedLevel ? "open" : "locked");
-
-    button.innerHTML =
-      (done ? "⭐" : unlockedLevel ? "📘" : "🔒") +
-      "<br>Level " + number;
-
-    button.disabled = !unlockedLevel;
-    button.onclick = () => openLevel(index);
-
-    grid.appendChild(button);
-  });
+function render(){
+$("hello").textContent="أهلاً يا "+name+"!";
+$("stars").textContent=stars;
+$("points").textContent=points;
+$("done").textContent=completed.length+"/25";
+$("levelGrid").innerHTML="";
+L.forEach((l,i)=>{
+let b=document.createElement("button");
+b.className="level"+(completed.includes(i+1)?" done":"")+(i+1===unlocked?" active":"");
+b.disabled=i+1>unlocked;
+b.innerHTML='<span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="words"><strong>'+l[0]+'</strong><small>'+l[1]+'</small></span><span class="lock">'+(completed.includes(i+1)?"✓":i+1>unlocked?"🔒":"▶")+'</span>';
+b.onclick=()=>openLevel(i);
+$("levelGrid").appendChild(b);
+});
 }
-
-function openLevel(index) {
-  currentLevel = index;
-  const level = levels[index];
-
-  showScreen("lesson");
-
-  document.getElementById("lessonTitle").textContent =
-    "Level " + (index + 1) + " - " + level.title;
-
-  document.getElementById("lessonDescription").textContent =
-    "احفظ الكلمات جيداً قبل بدء التدريب.";
-
-  const container = document.getElementById("lessonWords");
-  container.innerHTML = "";
-
-  level.words.forEach(word => {
-    const div = document.createElement("div");
-    div.className = "panel center";
-
-    div.innerHTML = `
-      <div class="word">${word[0]}</div>
-      <p>${word[1]}</p>
-      <button class="secondary-btn"
-        onclick="speakFrench('${word[0].replace(/'/g, "\\'")}')">
-        🔊 استمع للنطق
-      </button>
-    `;
-
-    container.appendChild(div);
-  });
+function hideScreens(){
+["lesson","practice","quiz","result"].forEach(id=>$(id).classList.add("hidden"));
 }
-
-function speakFrench(word) {
-  if (!("speechSynthesis" in window)) {
-    alert("متصفحك لا يدعم تشغيل النطق.");
-    return;
-  }
-
-  speechSynthesis.cancel();
-
-  const speech = new SpeechSynthesisUtterance(word);
-  speech.lang = "fr-FR";
-  speech.rate = 0.85;
-
-  speechSynthesis.speak(speech);
+function openLevel(i){
+current=i;
+hideScreens();
+$("lesson").classList.remove("hidden");
+$("levelNumber").textContent="LEVEL "+String(i+1).padStart(2,"0")+" / 25";
+$("lessonTitle").textContent=L[i][0]+" — "+L[i][1];
+$("lessonDesc").textContent=L[i][2];
+$("lessonProgress").style.width=((i+1)/25*100)+"%";
+$("words").innerHTML="";
+L[i][3].forEach(w=>{
+let [fr,ar]=w.split("|");
+let d=document.createElement("div");
+d.className="word";
+let s=document.createElement("div");
+s.innerHTML="<b>"+escapeHTML(fr)+"</b><br><span>"+escapeHTML(ar)+"</span>";
+let b=document.createElement("button");
+b.className="secondary";
+b.textContent="🔊 استمع";
+b.onclick=()=>speak(fr);
+d.append(s,b);
+$("words").appendChild(d);
+});
+$("lessonActions").innerHTML=current>=2?
+'<button onclick="beginPractice()">ابدأ التدريب قبل الامتحان 📘</button>':
+'<button onclick="startLegacyQuiz()">أنا مستعد للاختبار</button>';
+$("lesson").scrollIntoView({behavior:"smooth",block:"start"});
 }
-
-function goHome() {
-  showHome();
+function speak(t){
+if(!window.speechSynthesis){alert("النطق غير مدعوم في هذا المتصفح");return}
+let u=new SpeechSynthesisUtterance(t);
+u.lang="fr-FR";u.rate=.82;
+speechSynthesis.cancel();speechSynthesis.speak(u);
 }
-
-function shuffle(array) {
-  const result = [...array];
-
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-
-  return result;
+function shuffle(a){
+let b=[...a];
+for(let i=b.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[b[i],b[j]]=[b[j],b[i]];
 }
-
-function createQuestions(levelIndex) {
-  const words = levels[levelIndex].words;
-  const questions = [];
-
-  // سؤال ترتيب الكلمات الأول
-  const first = words[0];
-
-  questions.push({
-    type: "order",
-    word: first[0],
-    answer: first[1],
-    options: shuffle(words.map(w => w[1]))
-  });
-
-  // سؤال اختيار المعنى الأول
-  const second = words[1];
-
-  questions.push({
-    type: "choose",
-    word: second[0],
-    answer: second[1],
-    options: shuffle(words.map(w => w[1]))
-  });
-
-  // سؤال ترتيب الكلمات الثاني
-  const third = words[2];
-
-  questions.push({
-    type: "order",
-    word: third[0],
-    answer: third[1],
-    options: shuffle(words.map(w => w[1]))
-  });
-
-  // سؤال اختيار المعنى الثاني
-  const fourth = words[3];
-
-  questions.push({
-    type: "choose",
-    word: fourth[0],
-    answer: fourth[1],
-    options: shuffle(words.map(w => w[1]))
-  });
-
-  // سؤال الكلمة المختلفة
-  const odd = words[4];
-
-  questions.push({
-    type: "odd",
-    word: odd[0],
-    answer: odd[0],
-    options: shuffle(words.map(w => w[0]))
-  });
-
-  return questions;
+return b;
 }
-
-function startPractice() {
-  practiceQuestions = createQuestions(currentLevel);
-  questionIndex = 0;
-  score = 0;
-
-  showScreen("practice");
-  showPracticeQuestion();
+function makeChoices(correct,pool){
+let choices=[correct];
+let candidates=shuffle([...new Set(pool.filter(x=>x&&x!==correct))]);
+while(choices.length<4&&candidates.length)choices.push(candidates.shift());
+return shuffle(choices);
 }
-
-function showPracticeQuestion() {
-  const q = practiceQuestions[questionIndex];
-
-  document.getElementById("practiceCounter").textContent =
-    "السؤال " + (questionIndex + 1) + " من 5";
-
-  document.getElementById("practiceProgress").style.width =
-    ((questionIndex + 1) / 5 * 100) + "%";
-
-  const title = document.getElementById("practiceQuestion");
-
-  if (q.type === "order") {
-    title.textContent = "اختر معنى الكلمة الصحيحة:";
-  } else if (q.type === "choose") {
-    title.textContent = "ماذا تعني هذه الكلمة؟";
-  } else {
-    title.textContent = "اختر الكلمة المختلفة:";
-  }
-
-  const word = document.createElement("div");
-  word.className = "word";
-  word.textContent = q.word;
-
-  const container = document.getElementById("practiceOptions");
-  container.innerHTML = "";
-  container.appendChild(word);
-
-  q.options.forEach(option => {
-    const button = document.createElement("button");
-    button.className = "option-btn";
-    button.textContent = option;
-
-    button.onclick = () => {
-      if (selectedAnswer !== null) return;
-
-      selectedAnswer = option;
-      const correct = option === q.answer;
-
-      if (correct) {
-        score++;
-        button.classList.add("correct");
-        document.getElementById("practiceFeedback").textContent =
-          "إجابة صحيحة! ممتاز يا " + student + " ⭐";
-      } else {
-        button.classList.add("wrong");
-        document.getElementById("practiceFeedback").textContent =
-          "إجابة غير صحيحة. الإجابة هي: " + q.answer;
-      }
-
-      document.querySelectorAll("#practiceOptions button")
-        .forEach(btn => btn.disabled = true);
-
-      document.getElementById("nextPractice").classList.remove("hidden");
-    };
-
-    container.appendChild(button);
-  });
-
-  selectedAnswer = null;
-
-  document.getElementById("practiceFeedback").textContent = "";
-  document.getElementById("nextPractice").classList.add("hidden");
+function wordPairs(){return L[current][3].map(x=>x.split("|"))}
+function getSentencePair(){
+return SENTENCES[current+1]||SENTENCES[25];
 }
-
-function nextPracticeQuestion() {
-  questionIndex++;
-
-  if (questionIndex < 5) {
-    showPracticeQuestion();
-  } else {
-    startExam();
-  }
+function makeQuestionSet(which){
+let vocab=wordPairs();
+let all=L.flatMap(x=>x[3].map(y=>y.split("|")));
+let sentences=getSentencePair()[which];
+let orderQuestions=sentences.map(sentence=>{
+let clean=sentence.replace(/[.,!?]/g,"");
+return {
+type:"رتّب الجملة",
+kind:"order",
+prompt:"رتّب الكلمات لتكوين جملة فرنسية صحيحة.",
+words:shuffle(clean.split(" ")),
+answer:clean,
+explain:"انتبه لترتيب الفاعل والفعل وباقي كلمات الجملة."
+};
+});
+let choiceIndexes=which===0?[0,1]:[Math.min(2,vocab.length-1),Math.min(4,vocab.length-1)];
+let choiceQuestions=choiceIndexes.map(index=>{
+let pair=vocab[index];
+return {
+type:"اختر الإجابة الصحيحة",
+kind:"choice",
+prompt:"ما معنى الكلمة الفرنسية: "+pair[0]+"؟",
+options:makeChoices(pair[1],all.map(x=>x[1])),
+answer:pair[1],
+explain:pair[0]+" تعني "+pair[1]+"."
+};
+});
+let group=which===0?[0,1,2]:[Math.max(0,vocab.length-3),Math.max(0,vocab.length-2),vocab.length-1];
+let outsideIndex=(current+(which===0?8:13))%L.length;
+if(outsideIndex===current)outsideIndex=(outsideIndex+1)%L.length;
+let outside=L[outsideIndex][3][0].split("|")[0];
+let oddWords=group.map(i=>vocab[i][0]);
+if(oddWords.includes(outside))outside=L[(outsideIndex+1)%L.length][3][0].split("|")[0];
+oddWords.push(outside);
+let oddQuestion={
+type:"اكتشف الكلمة المختلفة",
+kind:"choice",
+prompt:"ثلاث كلمات تنتمي إلى موضوع «"+L[current][1]+"». اختر الكلمة التي لا تنتمي إليها.",
+options:shuffle(oddWords),
+answer:outside,
+explain:"الكلمة المختلفة لا تنتمي إلى موضوع "+L[current][1]+"."
+};
+return [...orderQuestions,...choiceQuestions,oddQuestion];
 }
-
-function startExam() {
-  examQuestions = createQuestions(currentLevel);
-  questionIndex = 0;
-  score = 0;
-
-  showScreen("exam");
-  showExamQuestion();
+function beginPractice(){
+mode="practice";
+questions=makeQuestionSet(0);
+qi=0;score=0;
+hideScreens();
+$("practice").classList.remove("hidden");
+showPracticeQuestion();
 }
-
-function showExamQuestion() {
-  const q = examQuestions[questionIndex];
-
-  document.getElementById("examCounter").textContent =
-    "السؤال " + (questionIndex + 1) + " من 5";
-
-  document.getElementById("examProgress").style.width =
-    ((questionIndex + 1) / 5 * 100) + "%";
-
-  const title = document.getElementById("examQuestion");
-
-  if (q.type === "order") {
-    title.textContent = "اختر المعنى الصحيح:";
-  } else if (q.type === "choose") {
-    title.textContent = "ما معنى الكلمة التالية؟";
-  } else {
-    title.textContent = "أي كلمة مختلفة عن البقية؟";
-  }
-
-  const word = document.createElement("div");
-  word.className = "word";
-  word.textContent = q.word;
-
-  const container = document.getElementById("examOptions");
-  container.innerHTML = "";
-  container.appendChild(word);
-
-  q.options.forEach(option => {
-    const button = document.createElement("button");
-    button.className = "option-btn";
-    button.textContent = option;
-
-    button.onclick = () => {
-      if (selectedAnswer !== null) return;
-
-      selectedAnswer = option;
-      const correct = option === q.answer;
-
-      if (correct) {
-        score++;
-        button.classList.add("correct");
-        document.getElementById("examFeedback").textContent =
-          "إجابة صحيحة! أحسنت.";
-      } else {
-        button.classList.add("wrong");
-        document.getElementById("examFeedback").textContent =
-          "الإجابة الصحيحة: " + q.answer;
-      }
-
-      document.querySelectorAll("#examOptions button")
-        .forEach(btn => btn.disabled = true);
-
-      document.getElementById("nextExam").classList.remove("hidden");
-    };
-
-    container.appendChild(button);
-  });
-
-  selectedAnswer = null;
-
-  document.getElementById("examFeedback").textContent = "";
-  document.getElementById("nextExam").classList.add("hidden");
-}
-
-function nextExamQuestion() {
-  questionIndex++;
-
-  if (questionIndex < 5) {
-    showExamQuestion();
-  } else {
-    finishExam();
-  }
-}
-
-function finishExam() {
-  showScreen("result");
-
-  document.getElementById("resultScore").textContent =
-    score + " / 5";
-
-  if (score >= 4) {
-    document.getElementById("resultTitle").textContent =
-      "Félicitations! 🏆";
-
-    document.getElementById("resultText").textContent =
-      "ممتاز يا " + student +
-      "! لقد نجحت في المستوى.";
-
-    if (!completed.includes(currentLevel + 1)) {
-      completed.push(currentLevel + 1);
-      points += 100;
-    }
-
-    if (currentLevel + 2 > unlocked && unlocked < 25) {
-      unlocked = currentLevel + 2;
-    }
-
-    document.getElementById("resultButton").textContent =
-      "المستوى التالي";
-
-    document.getElementById("resultButton").onclick = () => {
-      showHome();
-      if (currentLevel < 24) {
-        openLevel(currentLevel + 1);
-      }
-    };
-
-  } else {
-    document.getElementById("resultTitle").textContent =
-      "حاول مرة أخرى 💪";
-
-    document.getElementById("resultText").textContent =
-      "تحتاج إلى 4 إجابات صحيحة على الأقل للنجاح. راجع الكلمات وحاول مجدداً.";
-
-    document.getElementById("resultButton").textContent =
-      "إعادة التدريب";
-
-    document.getElementById("resultButton").onclick =
-      () => openLevel(currentLevel);
-  }
-
-  document.getElementById("points").textContent = points;
-
-  save();
-}
-
-// تشغيل التطبيق واستعادة البيانات
-function initialize() {
-  load();
-
-  if (student) {
-    showHome();
-  } else {
-    showScreen("welcome");
-  }
-}
-
-initialize();
-
-</script>
-</body>
-</html>
+function showPracticeQuestion(){
+answered=false;selectedWords=[];
+let q=questions[qi];
+$("practiceCounter").textContent="تدريب "+(qi+1)+" من 5";
+$("practiceType").textContent=q.type;
+$("practiceQuestion").textContent=q.prompt;
+$("practiceFeedback").classList.add("hidden");
+$("practiceActions").innerHTML="";
+let area=$("practiceArea");
+area.innerHTML="";
+if(q.kind==="order"){
+let tray=document.createElement("div");
+tray.className="choice-grid";
+q.words.forEach(w=>{
+let b=document.createElement("button");
+b.textContent=w;
+b.onclick=()=>{
+if(answered||b.disabled)return;
+selectedWords.push(w);
+b.disabled=true;
+renderSelectedOrder();
+};
+tray.appendChild(b);
+});
+area.appendChild(tray);
+let selected=document.createElement("div");
+selected.id="selectedOrder";
+  
