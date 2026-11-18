@@ -6,67 +6,161 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b30">
 <title>Kevin Essam | French Academy</title>
+
 <style>
-:root{--navy:#06172b;--navy2:#0b2940;--blue:#123f59;--green:#20e68a;--green2:#8affbd;--white:#f4fbff;--muted:#a9c4d4;--gold:#ffd45e}
+:root{
+--navy:#06172b;
+--navy2:#0b2940;
+--green:#20e68a;
+--green2:#8affbd;
+--white:#f4fbff;
+--muted:#a9c4d4;
+--gold:#ffd45e
+}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 15% 5%,#10513f 0,transparent 34%),linear-gradient(145deg,#061426,#092a43 58%,#06172b);color:var(--white);font-family:Arial,Tahoma,sans-serif;min-height:100vh;padding:18px;overflow-x:hidden}
-body:before{content:"KEVIN ESSAM";position:fixed;z-index:0;top:38%;left:-8%;font-size:clamp(42px,10vw,100px);font-weight:1000;letter-spacing:5px;color:#c9ffdf0b;transform:rotate(-25deg);white-space:nowrap;pointer-events:none}
+body{
+margin:0;
+background:radial-gradient(ellipse at 15% 5%,#10513f 0,transparent 34%),
+linear-gradient(145deg,#061426,#092a43 58%,#06172b);
+color:var(--white);
+font-family:Arial,Tahoma,sans-serif;
+min-height:100vh;
+padding:18px;
+overflow-x:hidden
+}
+body:before{
+content:"KEVIN ESSAM";
+position:fixed;
+z-index:0;
+top:38%;
+left:-8%;
+font-size:clamp(42px,10vw,100px);
+font-weight:1000;
+letter-spacing:5px;
+color:#c9ffdf0b;
+transform:rotate(-25deg);
+white-space:nowrap;
+pointer-events:none
+}
 main{max-width:900px;margin:auto;position:relative;z-index:1}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:4px 0 18px}
-.brand{font-weight:1000;font-size:clamp(22px,5vw,34px);font-style:italic;letter-spacing:-1px}
+header{
+display:flex;align-items:center;justify-content:space-between;
+gap:12px;flex-wrap:wrap;margin:4px 0 18px
+}
+.brand{font-weight:1000;font-size:clamp(22px,5vw,34px);font-style:italic}
 .brand span{color:var(--green)}
-.tag{font-size:11px;letter-spacing:2px;color:var(--green2);border:1px solid #37e99b66;border-radius:30px;padding:8px 12px}
-.panel{background:linear-gradient(135deg,#102f48ed,#092338ed);border:1px solid #6bd9c044;border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 14px 40px #0004;backdrop-filter:blur(8px)}
-.hero{background:linear-gradient(115deg,#0e6549,#123b55 58%,#0a2038);border:1px solid #64ffc366}
+.tag{
+font-size:11px;letter-spacing:2px;color:var(--green2);
+border:1px solid #37e99b66;border-radius:30px;padding:8px 12px
+}
+.panel{
+background:linear-gradient(135deg,#102f48ed,#092338ed);
+border:1px solid #6bd9c044;border-radius:22px;
+padding:18px;margin:14px 0;box-shadow:0 14px 40px #0004;
+backdrop-filter:blur(8px)
+}
+.hero{
+background:linear-gradient(115deg,#0e6549,#123b55 58%,#0a2038);
+border:1px solid #64ffc366
+}
 h1,h2,h3,p{margin-top:0}
 h1{font-size:clamp(25px,6vw,40px);margin-bottom:8px}
 h2{color:var(--green2);font-size:22px}
 p{line-height:1.65}
 .muted{color:var(--muted);font-size:14px}
-input{width:100%;padding:15px;border-radius:13px;border:1px solid #6ee9b477;background:#061b2e;color:white;font-size:17px;margin:8px 0}
-button{border:0;border-radius:13px;padding:12px 16px;background:linear-gradient(110deg,#21e58a,#83ffb2);color:#062319;font-weight:900;font-size:15px;cursor:pointer;margin:4px;box-shadow:0 5px 18px #0be68a22}
+input{
+width:100%;padding:15px;border-radius:13px;
+border:1px solid #6ee9b477;background:#061b2e;
+color:white;font-size:17px;margin:8px 0
+}
+button{
+border:0;border-radius:13px;padding:12px 16px;
+background:linear-gradient(110deg,#21e58a,#83ffb2);
+color:#062319;font-weight:900;font-size:15px;
+cursor:pointer;margin:4px;box-shadow:0 5px 18px #0be68a22
+}
 button.secondary{background:linear-gradient(110deg,#1677a7,#42c8ed);color:#fff}
 button.dark{background:#183d55;color:#e8faff;border:1px solid #4f9bb4}
 button:disabled{opacity:.38;cursor:not-allowed}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}
-.stat{background:#061c30aa;border:1px solid #62e9b533;border-radius:15px;padding:12px;text-align:center}
+.stat{
+background:#061c30aa;border:1px solid #62e9b533;
+border-radius:15px;padding:12px;text-align:center
+}
 .stat b{display:block;color:var(--green2);font-size:23px}
 .stat small{color:var(--muted)}
 .level-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.level{margin:0;text-align:right;display:flex;align-items:center;gap:10px;background:linear-gradient(110deg,#123a50,#0b263d);border:1px solid #4acb9a44;color:white;box-shadow:none;padding:12px;min-height:75px}
+.level{
+margin:0;text-align:right;display:flex;align-items:center;gap:10px;
+background:linear-gradient(110deg,#123a50,#0b263d);
+border:1px solid #4acb9a44;color:white;box-shadow:none;
+padding:12px;min-height:75px
+}
 .level .num{font-size:24px;font-weight:1000;color:var(--green);min-width:34px}
 .level .words{flex:1}
 .level strong{display:block;font-size:14px}
 .level small{color:#b8d4e1}
 .level .lock{font-size:18px}
 .level.done{border-color:#35e994}
-.level.active{background:linear-gradient(110deg,#146a4c,#12516b);box-shadow:0 0 18px #22e88a22}
-.word{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#0a2237;border:1px solid #2b6b70;border-radius:13px;padding:10px 12px;margin:8px 0}
+.level.active{background:linear-gradient(110deg,#146a4c,#12516b)}
+.word{
+display:flex;justify-content:space-between;align-items:center;
+gap:10px;background:#0a2237;border:1px solid #2b6b70;
+border-radius:13px;padding:10px 12px;margin:8px 0
+}
 .word b{font-size:18px;color:#8affbd}
 .word span{color:#d5eaf2}
 .progress{height:9px;background:#061a2b;border-radius:20px;overflow:hidden;margin:12px 0}
 .progress i{display:block;height:100%;background:linear-gradient(90deg,#13bd75,#78ffb0);width:0}
 .options{display:grid;gap:8px}
-.options button{width:100%;text-align:right;background:#123d57;color:white;border:1px solid #57bdd255;box-shadow:none}
+.options button{
+width:100%;text-align:right;background:#123d57;
+color:white;border:1px solid #57bdd255;box-shadow:none
+}
 .options button:disabled{opacity:.8}
-.character-wrap{display:flex;align-items:center;gap:16px;justify-content:center;flex-wrap:wrap}
-.avatar{width:150px;height:180px;flex:0 0 150px;filter:drop-shadow(0 8px 15px #0005)}
-.speech{background:#f1fff8;color:#08243a;border-radius:18px;padding:15px;max-width:430px;font-weight:bold;position:relative}
-.speech:after{content:"";position:absolute;right:-10px;top:25px;border-width:10px 0 10px 12px;border-style:solid;border-color:transparent transparent transparent #f1fff8}
-.reward{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}
-.reward span{background:#09253a;border:1px solid #43db9b66;padding:10px 16px;border-radius:13px;color:#ffe17c;font-weight:bold}
 .center{text-align:center}
 .hidden{display:none!important}
 .footer{text-align:center;color:#7fa7ba;font-size:12px;margin:24px 0}
-.choice-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}
-.choice-grid button{background:#123d57;color:white;border:1px solid #57bdd255;box-shadow:none}
-.pill{display:inline-block;background:#0b6548;padding:10px 14px;border-radius:10px;margin:3px;font-weight:bold}
-.feedback{background:#09253a;border:1px solid #43db9b66;padding:13px;border-radius:12px;margin:12px 0;line-height:1.7}
-@media(max-width:520px){body{padding:12px}.level-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.panel{padding:14px}.speech:after{display:none}}
+.choice-grid{
+display:flex;gap:8px;flex-wrap:wrap;
+justify-content:center;margin:12px 0
+}
+.choice-grid button{
+background:#123d57;color:white;border:1px solid #57bdd255;box-shadow:none
+}
+.pill{
+display:inline-block;background:#0b6548;padding:10px 14px;
+border-radius:10px;margin:3px;font-weight:bold
+}
+.feedback{
+background:#09253a;border:1px solid #43db9b66;
+padding:13px;border-radius:12px;margin:12px 0;line-height:1.7
+}
+.selected{
+background:#146a4c!important;
+border:1px solid var(--green)!important
+}
+.reward{
+display:flex;gap:10px;justify-content:center;
+flex-wrap:wrap;margin:14px 0
+}
+.reward span{
+background:#09253a;border:1px solid #43db9b66;
+padding:10px 16px;border-radius:13px;
+color:#ffe17c;font-weight:bold
+}
+@media(max-width:520px){
+body{padding:12px}
+.level-grid{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(3,1fr)}
+.panel{padding:14px}
+}
 </style>
 </head>
+
 <body>
 <main>
+
 <header>
 <div class="brand">KEVIN <span>ESSAM</span></div>
 <div class="tag">FRENCH ACADEMY • 25 LEVELS</div>
@@ -82,6 +176,7 @@ button:disabled{opacity:.38;cursor:not-allowed}
 </section>
 
 <section id="app" class="hidden">
+
 <div class="panel hero">
 <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
 <div>
@@ -91,6 +186,7 @@ button:disabled{opacity:.38;cursor:not-allowed}
 </div>
 <button class="dark" onclick="changeName()">تغيير الاسم</button>
 </div>
+
 <div class="stats">
 <div class="stat"><b id="stars">0</b><small>⭐ النجوم</small></div>
 <div class="stat"><b id="done">0/25</b><small>المستويات</small></div>
@@ -129,16 +225,20 @@ button:disabled{opacity:.38;cursor:not-allowed}
 <h2 id="qType"></h2>
 <p id="question"></p>
 <div id="answers" class="options"></div>
-<p id="feedback" class="feedback" aria-live="polite"></p>
+<div id="feedback" class="feedback hidden" aria-live="polite"></div>
 <div id="examActions"></div>
 </div>
 
 <div id="result" class="panel hidden center"></div>
+
 </section>
+
 <div class="footer">KEVIN ESSAM • APPRENONS LE FRANÇAIS ENSEMBLE</div>
 </main>
 
 <script>
+"use strict";
+
 const L=[
 ["Les salutations","التحيات","تعرّف على أشهر كلمات الترحيب",["Bonjour|صباح الخير","Salut|أهلًا","Bonsoir|مساء الخير","Merci|شكرًا","Au revoir|إلى اللقاء"]],
 ["Les nombres","الأرقام من 1 إلى 15","تعلّم العد من واحد إلى خمسة عشر",["Un|واحد","Deux|اثنان","Trois|ثلاثة","Quatre|أربعة","Cinq|خمسة","Six|ستة","Sept|سبعة","Huit|ثمانية","Neuf|تسعة","Dix|عشرة","Onze|أحد عشر","Douze|اثنا عشر","Treize|ثلاثة عشر","Quatorze|أربعة عشر","Quinze|خمسة عشر"]],
@@ -168,6 +268,14 @@ const L=[
 ];
 
 const SENTENCES={
+1:[
+["Je m'appelle Kevin.","Bonjour mon ami."],
+["Bonsoir, comment ça va ?","Merci beaucoup."]
+],
+2:[
+["Un, deux, trois, quatre.","J'ai cinq livres."],
+["Il y a dix élèves.","Mon numéro est quinze."]
+],
 3:[
 ["Le ciel est bleu.","La pomme est rouge."],
 ["Le soleil est jaune.","Le chat est noir."]
@@ -262,113 +370,217 @@ const SENTENCES={
 ]
 };
 
-let name="",current=0,stars=0,points=0,unlocked=1,completed=[];
-let questions=[],qi=0,score=0,mode="practice",answered=false,selectedWords=[];
+let name="";
+let current=0;
+let stars=0;
+let points=0;
+let unlocked=1;
+let completed=[];
+let questions=[];
+let qi=0;
+let score=0;
+let selectedWords=[];
+let selectedChoice="";
+let phase="practice";
+let answered=false;
+
 const $=id=>document.getElementById(id);
 
 function load(){
+try{
 name=localStorage.getItem("kea_name")||"";
-stars=+(localStorage.getItem("kea_stars")||0);
-points=+(localStorage.getItem("kea_points")||0);
-unlocked=+(localStorage.getItem("kea_unlocked")||1);
-try{completed=JSON.parse(localStorage.getItem("kea_completed")||"[]")}catch(e){completed=[]}
+stars=Number(localStorage.getItem("kea_stars"))||0;
+points=Number(localStorage.getItem("kea_points"))||0;
+unlocked=Number(localStorage.getItem("kea_unlocked"))||1;
+
+let saved=JSON.parse(localStorage.getItem("kea_completed")||"[]");
+completed=Array.isArray(saved)?saved.filter(x=>Number.isInteger(x)&&x>=1&&x<=25):[];
+
+unlocked=Math.max(1,Math.min(25,unlocked));
+}catch(e){
+console.warn("Storage unavailable",e);
+name="";
+stars=0;
+points=0;
+unlocked=1;
+completed=[];
 }
+}
+
 function save(){
+try{
 localStorage.setItem("kea_name",name);
 localStorage.setItem("kea_stars",stars);
 localStorage.setItem("kea_points",points);
 localStorage.setItem("kea_unlocked",unlocked);
 localStorage.setItem("kea_completed",JSON.stringify(completed));
+}catch(e){
+console.warn("Could not save progress",e);
 }
+}
+
 function start(){
-let n=$("studentName").value.trim();
-if(!n){alert("اكتب اسمك أولًا");return}
-name=n;save();
+const input=$("studentName");
+const n=input.value.trim();
+
+if(!n){
+alert("اكتب اسمك أولًا");
+input.focus();
+return;
+}
+
+name=n;
+save();
+
 $("welcome").classList.add("hidden");
 $("app").classList.remove("hidden");
+hideScreens();
 render();
+
+window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function changeName(){
 $("app").classList.add("hidden");
 $("welcome").classList.remove("hidden");
 $("studentName").value=name;
+$("studentName").focus();
+window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function render(){
 $("hello").textContent="أهلاً يا "+name+"!";
 $("stars").textContent=stars;
 $("points").textContent=points;
 $("done").textContent=completed.length+"/25";
+
 $("levelGrid").innerHTML="";
+
 L.forEach((l,i)=>{
-let b=document.createElement("button");
-b.className="level"+(completed.includes(i+1)?" done":"")+(i+1===unlocked?" active":"");
+const b=document.createElement("button");
+b.className="level";
+
+if(completed.includes(i+1))b.classList.add("done");
+if(i+1===unlocked)b.classList.add("active");
+
 b.disabled=i+1>unlocked;
-b.innerHTML='<span class="num">'+String(i+1).padStart(2,"0")+'</span><span class="words"><strong>'+l[0]+'</strong><small>'+l[1]+'</small></span><span class="lock">'+(completed.includes(i+1)?"✓":i+1>unlocked?"🔒":"▶")+'</span>';
+
+b.innerHTML=
+'<span class="num">'+String(i+1).padStart(2,"0")+'</span>'+
+'<span class="words"><strong>'+escapeHTML(l[0])+'</strong>'+
+'<small>'+escapeHTML(l[1])+'</small></span>'+
+'<span class="lock">'+
+(completed.includes(i+1)?"✓":i+1>unlocked?"🔒":"▶")+
+'</span>';
+
 b.onclick=()=>openLevel(i);
 $("levelGrid").appendChild(b);
 });
 }
+
 function hideScreens(){
-["lesson","practice","quiz","result"].forEach(id=>$(id).classList.add("hidden"));
+["lesson","practice","quiz","result"].forEach(id=>{
+$(id).classList.add("hidden");
+});
 }
+
+function backToLevels(){
+hideScreens();
+$("levelGrid").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
 function openLevel(i){
+if(i+1>unlocked)return;
+
 current=i;
 hideScreens();
+
 $("lesson").classList.remove("hidden");
 $("levelNumber").textContent="LEVEL "+String(i+1).padStart(2,"0")+" / 25";
 $("lessonTitle").textContent=L[i][0]+" — "+L[i][1];
 $("lessonDesc").textContent=L[i][2];
 $("lessonProgress").style.width=((i+1)/25*100)+"%";
+
 $("words").innerHTML="";
+
 L[i][3].forEach(w=>{
-let [fr,ar]=w.split("|");
-let d=document.createElement("div");
+const [fr,ar]=w.split("|");
+const d=document.createElement("div");
 d.className="word";
-let s=document.createElement("div");
+
+const s=document.createElement("div");
 s.innerHTML="<b>"+escapeHTML(fr)+"</b><br><span>"+escapeHTML(ar)+"</span>";
-let b=document.createElement("button");
+
+const b=document.createElement("button");
 b.className="secondary";
 b.textContent="🔊 استمع";
 b.onclick=()=>speak(fr);
+
 d.append(s,b);
 $("words").appendChild(d);
 });
+
 $("lessonActions").innerHTML=current>=2?
 '<button onclick="beginPractice()">ابدأ التدريب قبل الامتحان 📘</button>':
-'<button onclick="startLegacyQuiz()">أنا مستعد للاختبار</button>';
+'<button onclick="startExam()">أنا مستعد للاختبار 📝</button>';
+
 $("lesson").scrollIntoView({behavior:"smooth",block:"start"});
 }
+
 function speak(t){
-if(!window.speechSynthesis){alert("النطق غير مدعوم في هذا المتصفح");return}
-let u=new SpeechSynthesisUtterance(t);
-u.lang="fr-FR";u.rate=.82;
-speechSynthesis.cancel();speechSynthesis.speak(u);
+if(!("speechSynthesis" in window)){
+alert("النطق غير مدعوم في هذا المتصفح");
+return;
 }
+
+const u=new SpeechSynthesisUtterance(t);
+u.lang="fr-FR";
+u.rate=.82;
+
+speechSynthesis.cancel();
+speechSynthesis.speak(u);
+}
+
 function shuffle(a){
-let b=[...a];
+const b=[...a];
 for(let i=b.length-1;i>0;i--){
-let j=Math.floor(Math.random()*(i+1));
+const j=Math.floor(Math.random()*(i+1));
 [b[i],b[j]]=[b[j],b[i]];
 }
 return b;
 }
+
 function makeChoices(correct,pool){
-let choices=[correct];
-let candidates=shuffle([...new Set(pool.filter(x=>x&&x!==correct))]);
-while(choices.length<4&&candidates.length)choices.push(candidates.shift());
+const choices=[correct];
+const candidates=shuffle([...new Set(pool.filter(x=>x&&x!==correct))]);
+
+while(choices.length<4&&candidates.length){
+choices.push(candidates.shift());
+}
 return shuffle(choices);
 }
-function wordPairs(){return L[current][3].map(x=>x.split("|"))}
-function getSentencePair(){
-return SENTENCES[current+1]||SENTENCES[25];
+
+function wordPairs(){
+return L[current][3].map(x=>x.split("|"));
 }
+
+function normalize(s){
+return s.trim().replace(/\s+/g," ").replace(/[.,!?]$/,"").toLowerCase();
+}
+
 function makeQuestionSet(which){
-let vocab=wordPairs();
-let all=L.flatMap(x=>x[3].map(y=>y.split("|")));
-let sentences=getSentencePair()[which];
-let orderQuestions=sentences.map(sentence=>{
-let clean=sentence.replace(/[.,!?]/g,"");
-return {
+const vocab=wordPairs();
+const all=L.flatMap(x=>x[3].map(y=>y.split("|")));
+const sentenceList=SENTENCES[current+1]||SENTENCES[25];
+
+const sentences=which===0?
+sentenceList[0]:
+sentenceList[1];
+
+const orderQuestions=sentences.map(sentence=>{
+const clean=sentence.replace(/[.,!?]/g,"");
+
+return{
 type:"رتّب الجملة",
 kind:"order",
 prompt:"رتّب الكلمات لتكوين جملة فرنسية صحيحة.",
@@ -377,10 +589,15 @@ answer:clean,
 explain:"انتبه لترتيب الفاعل والفعل وباقي كلمات الجملة."
 };
 });
-let choiceIndexes=which===0?[0,1]:[Math.min(2,vocab.length-1),Math.min(4,vocab.length-1)];
-let choiceQuestions=choiceIndexes.map(index=>{
-let pair=vocab[index];
-return {
+
+const choiceIndexes=which===0?
+[0,1]:
+[Math.min(2,vocab.length-1),Math.min(4,vocab.length-1)];
+
+const choiceQuestions=choiceIndexes.map(index=>{
+const pair=vocab[index];
+
+return{
 type:"اختر الإجابة الصحيحة",
 kind:"choice",
 prompt:"ما معنى الكلمة الفرنسية: "+pair[0]+"؟",
@@ -389,14 +606,27 @@ answer:pair[1],
 explain:pair[0]+" تعني "+pair[1]+"."
 };
 });
-let group=which===0?[0,1,2]:[Math.max(0,vocab.length-3),Math.max(0,vocab.length-2),vocab.length-1];
+
+const group=which===0?
+[0,1,2]:
+[Math.max(0,vocab.length-3),Math.max(0,vocab.length-2),vocab.length-1];
+
 let outsideIndex=(current+(which===0?8:13))%L.length;
-if(outsideIndex===current)outsideIndex=(outsideIndex+1)%L.length;
+
+if(outsideIndex===current){
+outsideIndex=(outsideIndex+1)%L.length;
+}
+
 let outside=L[outsideIndex][3][0].split("|")[0];
 let oddWords=group.map(i=>vocab[i][0]);
-if(oddWords.includes(outside))outside=L[(outsideIndex+1)%L.length][3][0].split("|")[0];
+
+if(oddWords.includes(outside)){
+outside=L[(outsideIndex+1)%L.length][3][0].split("|")[0];
+}
+
 oddWords.push(outside);
-let oddQuestion={
+
+const oddQuestion={
 type:"اكتشف الكلمة المختلفة",
 kind:"choice",
 prompt:"ثلاث كلمات تنتمي إلى موضوع «"+L[current][1]+"». اختر الكلمة التي لا تنتمي إليها.",
@@ -404,41 +634,15 @@ options:shuffle(oddWords),
 answer:outside,
 explain:"الكلمة المختلفة لا تنتمي إلى موضوع "+L[current][1]+"."
 };
+
 return [...orderQuestions,...choiceQuestions,oddQuestion];
 }
+
 function beginPractice(){
-mode="practice";
+phase="practice";
 questions=makeQuestionSet(0);
-qi=0;score=0;
+qi=0;
+score=0;
+
 hideScreens();
-$("practice").classList.remove("hidden");
-showPracticeQuestion();
-}
-function showPracticeQuestion(){
-answered=false;selectedWords=[];
-let q=questions[qi];
-$("practiceCounter").textContent="تدريب "+(qi+1)+" من 5";
-$("practiceType").textContent=q.type;
-$("practiceQuestion").textContent=q.prompt;
-$("practiceFeedback").classList.add("hidden");
-$("practiceActions").innerHTML="";
-let area=$("practiceArea");
-area.innerHTML="";
-if(q.kind==="order"){
-let tray=document.createElement("div");
-tray.className="choice-grid";
-q.words.forEach(w=>{
-let b=document.createElement("button");
-b.textContent=w;
-b.onclick=()=>{
-if(answered||b.disabled)return;
-selectedWords.push(w);
-b.disabled=true;
-renderSelectedOrder();
-};
-tray.appendChild(b);
-});
-area.appendChild(tray);
-let selected=document.createElement("div");
-selected.id="selectedOrder";
-  
+$("practice").classList.rem
